@@ -1,0 +1,22 @@
+export type Money = { amount: number; currencyCode: string };
+export type ProductImage = { url: string; altText: string; width?: number; height?: number };
+export type ProductVariant = { id: string; title: string; availableForSale: boolean; price: Money; selectedOptions: { name: string; value: string }[] };
+export type Product = {
+  id: string;
+  title: string;
+  handle: string;
+  sourceUrl?: string;
+  seoTitle: string;
+  description: string;
+  descriptionHtml: string;
+  price: Money;
+  availableForSale: boolean;
+  images: ProductImage[];
+  variants: ProductVariant[];
+  collections: string[];
+  source: 'preview' | 'shopify';
+};
+export type Collection = { id: string; title: string; handle: string; description: string; productHandles: string[] };
+export type CartLine = { id: string; quantity: number; merchandise: { id: string; title: string; product: { title: string; handle: string }; image?: ProductImage; price: Money } };
+export type Cart = { id?: string; totalQuantity: number; lines: CartLine[]; subtotal: Money; checkoutUrl?: string };
+export type ShopPolicy = { handle: string; title: string; body: string; url: string };

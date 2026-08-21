@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="internal-page not-found"><p className="eyebrow dark">404 · LOST IN THE FOREST</p><h1>העמוד לא נמצא</h1><p>אולי הדרך השתנתה, אבל הטבע עדיין כאן.</p><a className="primary-button dark-button" href="/">חזרה לדף הבית</a></main>; }
