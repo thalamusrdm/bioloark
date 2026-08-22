@@ -356,7 +356,8 @@ p { text-wrap: pretty; }
   line-height: .99;
   letter-spacing: -.047em;
 }
-.hero h1 span { display: inline-block; color: #f2e6c8; font-weight: 420; letter-spacing: -.035em; }
+.hero h1 .hero-brand-line { display: block; margin-bottom: .16em; color: #f2e6c8; font-size: .72em; font-weight: 430; line-height: .9; letter-spacing: -.035em; text-align: right; }
+.hero h1 .hero-tagline { display: block; color: white; font-weight: 520; }
 .hero-copy { max-width: 530px; margin-block: 27px 32px; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.75; }
 .hero-note { width: 230px; font-size: 11px; }
 
@@ -389,7 +390,7 @@ p { text-wrap: pretty; }
   inset: -5%;
   width: 110%;
   height: 110%;
-  transform: translate3d(0, var(--scroll-shift, 0), 0) scale(1.045);
+  transform: translate3d(0, var(--scroll-shift, 0), 0) scale(var(--scroll-scale, 1.035));
   will-change: transform;
 }
 .terrarium-feature::after { background: linear-gradient(90deg, rgba(5,26,18,.08), rgba(5,26,18,.84)); }

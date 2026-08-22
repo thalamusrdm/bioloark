@@ -41,6 +41,12 @@ export function ScrollMotion() {
         const speed = Number(element.dataset.scrollSpeed || 22) * mobileFactor;
         const shift = Math.max(-speed, Math.min(speed, progress * speed));
         element.style.setProperty('--scroll-shift', `${shift.toFixed(2)}px`);
+
+        const zoomRange = Number(element.dataset.scrollZoom || 0) * mobileFactor;
+        if (zoomRange > 0) {
+          const visibleProgress = Math.max(0, Math.min(1, (viewportHeight - bounds.top) / (viewportHeight + bounds.height)));
+          element.style.setProperty('--scroll-scale', (1.035 + visibleProgress * zoomRange).toFixed(4));
+        }
       });
     };
 
