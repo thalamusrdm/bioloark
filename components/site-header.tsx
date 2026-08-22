@@ -21,7 +21,7 @@ export function SiteHeader() {
         <div className="header-actions">
           <button className="icon-button" onClick={() => setSearchOpen(true)} aria-label="חיפוש"><span aria-hidden="true">⌕</span></button>
           <button className="cart-button" onClick={open} aria-label={`פתיחת הסל, ${cart?.totalQuantity || 0} פריטים`}>סל <span>{cart?.totalQuantity || 0}</span></button>
-          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="פתיחת תפריט"><i /><i /></button>
+          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="פתיחת תפריט"><i /><i /><i /></button>
         </div>
       </header>
       {menuOpen && <div className="mobile-menu"><button onClick={() => setMenuOpen(false)} aria-label="סגירת תפריט">×</button><nav><a href="/category/all-products">כל המוצרים</a><a href="/category/rare-plants">צמחים נדירים</a><a href="/category/כלים-להכנה">כלים להכנה</a><a href="/category/טרריומים-מעוצבים">טרריומים מעוצבים</a><a href="/project-showcase">פרויקטים נבחרים</a><a href="/#about">קצת עלינו</a></nav><p>מאפו 13, מרכז תל אביב<br />info@bioloark.co.il</p></div>}

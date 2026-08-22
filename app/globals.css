@@ -56,8 +56,8 @@ button { color: inherit; font: inherit; }
 @media (max-width: 560px) { .site-header { padding: 0 20px; } .brand { font-size: 20px; } .brand-mark { width: 33px; height: 33px; } .icon-button { display: none; } .hero { min-height: 760px; } .hero-content { margin-top: 65px; } .hero-copy { font-size: 16px; } .collection-section { padding: 75px 18px 90px; } .section-heading { align-items: start; gap: 24px; } .section-heading > a { font-size: 12px; white-space: nowrap; } .product-grid { gap: 12px; row-gap: 36px; } .product-meta { display: block; } .product-meta strong { display: block; margin-top: 10px; } .manifesto { min-height: 520px; } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
 
-.menu-button { display: none; width: 32px; padding: 5px; border: 0; background: transparent; }
-.menu-button i { display: block; height: 1px; margin: 6px 0; background: white; }
+.menu-button { display: none; width: 44px; height: 44px; padding: 11px; flex-direction: column; justify-content: center; gap: 5px; border: 0; background: transparent; cursor: pointer; }
+.menu-button i { display: block; width: 100%; height: 1.5px; margin: 0; background: white; }
 .mobile-menu { position: fixed; inset: 0; z-index: 80; display: grid; align-content: center; padding: 8vw; background: var(--forest); color: white; }
 .mobile-menu > button, .overlay-close { position: absolute; inset: 28px auto auto 32px; border: 0; background: transparent; color: inherit; font-size: 42px; cursor: pointer; }
 .mobile-menu nav { display: grid; gap: 15px; }
@@ -225,7 +225,11 @@ button { color: inherit; font: inherit; }
   .collection-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 900px) {
-  .menu-button { display: block; }
+  .site-header { display: flex; direction: ltr; justify-content: space-between; }
+  .brand { justify-self: auto; }
+  .header-actions { direction: ltr; }
+  .cart-button { direction: rtl; }
+  .menu-button { display: flex; }
   .terrarium-feature { min-height: 720px; padding: 80px 28px; }
   .services-intro { display: block; }
   .services-intro > p:last-child { max-width: 650px; margin-top: 25px; }
