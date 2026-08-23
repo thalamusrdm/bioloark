@@ -25,6 +25,19 @@ npm run content:sync
 
 כאשר משתני Shopify חסרים או שהשירות אינו זמין, האתר חוזר אוטומטית לקטלוג Preview. במצב זה הרכישה מושבתת ולא נשמר סל.
 
+## פריסה ל־Vercel
+
+הפרויקט תומך בשני מסלולי Build:
+
+- `npm run build` (`vinext build`) — Build מקומי לפורמט Cloudflare Workers, נכתב אל `dist/`.
+- `next build` — Build סטנדרטי של Next.js אל `.next/`, וזה מה ש־Vercel מריץ.
+
+`vercel.json` מקבע את `buildCommand` ל־`next build` כדי ש־Vercel לא ירים בטעות את מסלול ה־Workers. `postcss.config.mjs` נדרש כדי ש־Tailwind יעבוד במסלול של Next (ב־Vite אותו תוסף מוגדר ישירות ב־`vite.config.ts`, ולכן הקובץ אינו משפיע עליו).
+
+לפני פריסה יש להגדיר ב־Vercel את משתני הסביבה מתוך `.env.example`:
+`SHOPIFY_STORE_DOMAIN`, `SHOPIFY_STOREFRONT_PRIVATE_TOKEN`, `SHOPIFY_API_VERSION`.
+בלעדיהם ה־Build יעבור, אך האתר יוגש במצב קטלוג Preview ללא רכישה.
+
 ## נתיבים חשובים
 
 - `/` — דף הבית

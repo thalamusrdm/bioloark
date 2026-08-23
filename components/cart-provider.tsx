@@ -28,7 +28,7 @@ export function CartProvider({ children, shopifyEnabled }: { children: React.Rea
     setLoading(true); setError(undefined);
     try {
       const response = await fetch('/api/cart', { method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined });
-      const payload = await response.json();
+      const payload = await response.json() as { cart?: Cart; error?: string };
       if (!response.ok) throw new Error(payload.error || 'לא ניתן לעדכן את הסל');
       setCart(payload.cart);
       return payload.cart as Cart;
