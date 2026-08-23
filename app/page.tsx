@@ -1,5 +1,6 @@
 import { getProducts } from '../lib/commerce';
 import { ProductCard } from '../components/product-card';
+import { ProductCarousel } from '../components/product-carousel';
 import { ScrollMotion } from '../components/scroll-motion';
 
 const featuredHandles = [
@@ -29,14 +30,16 @@ const pathways = [
 
 export default async function Home() {
   const products = await getProducts();
-  const featured = featuredHandles.map((handle) => products.find((product) => product.handle === handle)).filter(Boolean);
+  const featured = featuredHandles.flatMap((handle) => { const product = products.find((item) => item.handle === handle); return product ? [product] : []; });
+  const additionalTerrariums = products.filter((product) => !featuredHandles.includes(product.handle) && product.collections.includes('טרריומים-מעוצבים')).slice(0, 8);
+  const carouselProducts = [...featured, ...additionalTerrariums].reverse();
   const organization = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Bioloark', url: 'https://www.bioloark.co.il', image: 'https://www.bioloark.co.il/images/og.jpg', email: 'info@bioloark.co.il', address: { '@type': 'PostalAddress', streetAddress: 'מאפו 13', addressLocality: 'תל אביב', addressCountry: 'IL' }, openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'], opens: '10:00', closes: '19:00' }, { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '14:00' }], sameAs: ['https://www.facebook.com/BioloarkIsrael', 'https://www.instagram.com/bioloark_israel'] };
   return <main className="home-boutique"><ScrollMotion /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
     <section className="hero" id="top"><div className="hero-image" data-scroll-media data-scroll-speed="12" aria-hidden="true" /><div className="hero-veil" aria-hidden="true" /><div className="hero-content" data-reveal><p className="eyebrow">BOTANICAL ART DESIGN FOR INTERIORS</p><h1><span className="hero-brand-line" dir="ltr">Bioloark</span><span className="hero-tagline">עולמות קטנים שמכניסים חיים לכל חלל</span></h1><p className="hero-copy">אנחנו משלבים בין עיצוב, איזון ותשומת לב לפרטים כדי ליצור מראה נקי, מרשים ומלא השראה</p><a className="primary-button" href="#collection">למוצרי החנות <span>←</span></a></div><div className="hero-note"><span>01</span><p>עיצוב בוטני בהשראת מסורת הזן היפנית</p></div></section>
 
     <section className="path-section" aria-labelledby="path-title"><div className="path-heading" data-reveal><p className="eyebrow dark">THREE WAYS INTO THE LIVING WORLD</p><h2 id="path-title">הדרך שלכם<br />להכניס טבע פנימה</h2><p>בחרו יצירה מוכנה, בנו עולם משלכם או תנו לנו לתכנן עבורכם פתרון מותאם לחלל.</p></div><div className="path-grid">{pathways.map((path) => <a className="path-card" href={path.href} key={path.number} data-reveal><div className="path-card-media"><img src={path.image} alt={path.title} loading="lazy" data-scroll-media data-scroll-speed="6" /></div><div className="path-card-copy"><span>{path.number}</span><p>{path.label}</p><h3>{path.title}</h3><small>{path.description}</small><b aria-hidden="true">↙</b></div></a>)}</div></section>
 
-    <section className="collection-section" id="collection"><div className="section-heading" data-reveal><div><p className="eyebrow dark">A CURATED LIVING COLLECTION</p><h2>נבחרים מהסטודיו</h2></div><a href="/category/all-products">לכל המוצרים <span>←</span></a></div><div className="product-grid">{featured.map((product, index) => product && <ProductCard key={product.id} product={product} priority={index < 2} reveal />)}</div></section>
+    <section className="collection-section" id="collection"><div className="section-heading" data-reveal><div><p className="eyebrow dark">A CURATED LIVING COLLECTION</p><h2>נבחרים מהסטודיו</h2></div><a href="/category/all-products">לכל המוצרים <span>←</span></a></div><ProductCarousel>{carouselProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index >= carouselProducts.length - 2} reveal />)}</ProductCarousel></section>
 
     <section className="terrarium-feature" data-spotlight><img src="/images/terrarium-feature-16x9.webp" alt="טרריום מעוצב של Bioloark" data-scroll-media data-scroll-axis="x" /><div className="terrarium-feature-copy" data-reveal><p className="eyebrow">A WORLD WITHIN</p><h2>טבע חי.<br />בתוך עולם משל עצמו.</h2><p>קומפוזיציות בוטניות חד־פעמיות, שנבנות שכבה אחר שכבה וממשיכות להשתנות יחד עם החלל.</p><a className="outline-button" href="/category/טרריומים-מעוצבים">לחנות טרריומים מעוצבים</a></div></section>
 

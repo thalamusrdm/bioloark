@@ -1338,6 +1338,61 @@ p { text-wrap: pretty; }
   align-items: start;
 }
 
+.home-boutique .product-carousel { direction: ltr; }
+
+.home-boutique .product-carousel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+  direction: rtl;
+}
+
+.home-boutique .product-carousel-toolbar p {
+  margin: 0;
+  color: #727b75;
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+
+.home-boutique .product-carousel-toolbar > div { display: flex; direction: ltr; }
+
+.home-boutique .product-carousel-toolbar button {
+  width: 48px;
+  height: 42px;
+  border: 1px solid rgba(16,35,28,.28);
+  background: transparent;
+  color: var(--boutique-black);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.home-boutique .product-carousel-toolbar button + button { border-left: 0; }
+.home-boutique .product-carousel-toolbar button:hover { border-color: var(--boutique-black); background: var(--boutique-black); color: white; }
+
+.home-boutique .product-carousel-track {
+  display: flex;
+  gap: clamp(12px, 1.65vw, 26px);
+  overflow-x: auto;
+  padding: 0 0 8px;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-boutique .product-carousel-track::-webkit-scrollbar { display: none; }
+.home-boutique .product-carousel-track.is-dragging { cursor: grabbing; user-select: none; }
+
+.home-boutique .product-carousel-track .product-card {
+  flex: 0 0 clamp(230px, 24vw, 360px);
+  min-width: 0;
+  direction: rtl;
+}
+
 .home-boutique .product-image-wrap {
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -1568,6 +1623,12 @@ p { text-wrap: pretty; }
   .home-boutique .about-copy h2 { font-size: 42px; }
   .home-boutique .product-grid { gap: 10px; row-gap: 38px; }
   .home-boutique .product-image-wrap { aspect-ratio: 4 / 5; }
+  .home-boutique .product-carousel-track { gap: 10px; cursor: default; }
+  .home-boutique .product-carousel-track .product-card { flex-basis: min(54vw, 205px); }
+  .home-boutique .product-carousel-toolbar { margin-bottom: 16px; }
+  .home-boutique .product-carousel-toolbar button { width: 42px; height: 38px; }
+  .home-boutique .product-carousel-track .product-meta { min-height: 88px; padding-top: 13px; }
+  .home-boutique .product-carousel-track .product-meta h3 { font-size: 13px; }
   .home-boutique .product-meta { min-height: 98px; }
   .home-boutique .terrarium-feature { min-height: 72svh; padding-inline: 20px; }
   .home-boutique .terrarium-feature-copy h2 { font-size: 50px; }
