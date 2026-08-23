@@ -1,0 +1,7 @@
+interface:
+  display_name: "Bioloark Store Studio"
+  short_description: "Premium design and conversion for Bioloark"
+  brand_color: "#102C22"
+  default_prompt: "Use $bioloark-store-studio to turn this Bioloark storefront page into a premium, clear, conversion-aware botanical experience."
+policy:
+  allow_implicit_invocation: true
