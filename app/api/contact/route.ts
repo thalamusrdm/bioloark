@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { shopifyAdminIsConfigured, storeContactInShopify } from '../../../lib/shopify-admin';
+import { missingShopifyAdminEnvironmentVariables, shopifyAdminIsConfigured, storeContactInShopify } from '../../../lib/shopify-admin';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,7 +14,10 @@ export async function POST(request: NextRequest) {
     if (!name || !phone || !emailPattern.test(email) || !message) return NextResponse.json({ error: 'נא למלא שם, טלפון, אימייל והודעה תקינים.' }, { status: 400 });
 
     if (!shopifyAdminIsConfigured()) {
-      return NextResponse.json({ error: 'טופס יצירת הקשר עדיין לא חובר ל-Shopify.' }, { status: 503 });
+      return NextResponse.json({
+        error: 'טופס יצירת הקשר עדיין לא חובר ל-Shopify.',
+        missing: missingShopifyAdminEnvironmentVariables(),
+      }, { status: 503 });
     }
     await storeContactInShopify({ name, phone, email, message });
     return NextResponse.json({ ok: true });

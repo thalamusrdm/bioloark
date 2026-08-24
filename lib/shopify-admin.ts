@@ -26,11 +26,15 @@ function getShopDomain() {
 }
 
 export function shopifyAdminIsConfigured() {
-  return Boolean(
-    process.env.SHOPIFY_STORE_DOMAIN &&
-    process.env.SHOPIFY_ADMIN_CLIENT_ID &&
-    process.env.SHOPIFY_ADMIN_CLIENT_SECRET,
-  );
+  return missingShopifyAdminEnvironmentVariables().length === 0;
+}
+
+export function missingShopifyAdminEnvironmentVariables() {
+  return [
+    ['SHOPIFY_STORE_DOMAIN', process.env.SHOPIFY_STORE_DOMAIN],
+    ['SHOPIFY_ADMIN_CLIENT_ID', process.env.SHOPIFY_ADMIN_CLIENT_ID],
+    ['SHOPIFY_ADMIN_CLIENT_SECRET', process.env.SHOPIFY_ADMIN_CLIENT_SECRET],
+  ].filter(([, value]) => !value).map(([name]) => name);
 }
 
 async function getAdminAccessToken() {
