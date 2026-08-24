@@ -25,13 +25,13 @@ export function SiteHeader() {
           {shopSections.map((section) => section.items.length ? <div className="nav-menu" key={section.title}><a className="nav-parent" href={section.href}>{section.title}<span>⌄</span></a><div className="nav-dropdown"><a href={section.href}>{section.title}</a>{section.items.slice(1).map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></div> : <a key={section.title} href={section.href}>{section.title}</a>)}<a href="/#about">קצת עלינו</a><a href="/project-showcase">פרויקטים</a>
         </nav>
         <div className="header-actions">
-          <button className="icon-button" onClick={() => setSearchOpen(true)} aria-label="חיפוש"><span aria-hidden="true">⌕</span></button>
+          <button className="icon-button" onClick={() => setSearchOpen((value) => !value)} aria-expanded={searchOpen} aria-controls="header-search" aria-label="חיפוש"><span aria-hidden="true">⌕</span></button>
           <button className="cart-button" onClick={open} aria-label={`פתיחת הסל, ${cart?.totalQuantity || 0} פריטים`}>סל <span>{cart?.totalQuantity || 0}</span></button>
           <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="פתיחת תפריט"><i /><i /><i /></button>
         </div>
       </header>
       {menuOpen && <div className="mobile-menu"><button onClick={() => setMenuOpen(false)} aria-label="סגירת תפריט">×</button><nav><a href="/category/all-products">כל המוצרים</a>{shopSections.map((section) => section.items.length ? <details key={section.title}><summary>{section.title}</summary><div>{section.items.map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></details> : <a href={section.href} key={section.title}>{section.title}</a>)}<a href="/project-showcase">פרויקטים נבחרים</a><a href="/#about">קצת עלינו</a></nav><p>מאפו 13, מרכז תל אביב<br />info@bioloark.co.il</p></div>}
-      {searchOpen && <div className="search-overlay" role="dialog" aria-modal="true" aria-label="חיפוש באתר"><button className="overlay-close" onClick={() => setSearchOpen(false)} aria-label="סגירה">×</button><form action="/search"><label htmlFor="site-search">מה תרצו למצוא?</label><div><input autoFocus id="site-search" name="q" placeholder="טרריום, צמח או כלי…" /><button type="submit">חיפוש</button></div></form></div>}
+      {searchOpen && <div className="search-popover" id="header-search" role="search" aria-label="חיפוש באתר"><button className="search-close" onClick={() => setSearchOpen(false)} aria-label="סגירת החיפוש">×</button><form action="/search"><label htmlFor="site-search">חיפוש באתר</label><div><input autoFocus id="site-search" name="q" placeholder="טרריום, צמח או כלי…" /><button type="submit">חיפוש</button></div></form></div>}
     </>
   );
 }
