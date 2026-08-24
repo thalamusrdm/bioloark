@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { shopifyAdminIsConfigured, storeContactInShopify } from '../../../lib/shopify-admin';
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character] || character);
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,25 +13,13 @@ export async function POST(request: NextRequest) {
     if (String(input.website || '').trim()) return NextResponse.json({ ok: true });
     if (!name || !phone || !emailPattern.test(email) || !message) return NextResponse.json({ error: 'נא למלא שם, טלפון, אימייל והודעה תקינים.' }, { status: 400 });
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const from = process.env.CONTACT_FROM_EMAIL;
-    const to = process.env.CONTACT_TO_EMAIL || 'info@bioloark.co.il';
-    if (!apiKey || !from) return NextResponse.json({ error: 'טופס יצירת הקשר עדיין לא חובר לשירות הדיוור.' }, { status: 503 });
-
-    const result = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: email,
-        subject: `פנייה חדשה מאתר Bioloark — ${name}`,
-        html: `<div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.7"><h2>פנייה חדשה מהאתר</h2><p><strong>שם:</strong> ${escapeHtml(name)}</p><p><strong>טלפון:</strong> ${escapeHtml(phone)}</p><p><strong>אימייל:</strong> ${escapeHtml(email)}</p><p><strong>הודעה:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p></div>`,
-      }),
-    });
-    if (!result.ok) return NextResponse.json({ error: 'שליחת ההודעה נכשלה. נסו שוב בעוד רגע.' }, { status: 502 });
+    if (!shopifyAdminIsConfigured()) {
+      return NextResponse.json({ error: 'טופס יצירת הקשר עדיין לא חובר ל-Shopify.' }, { status: 503 });
+    }
+    await storeContactInShopify({ name, phone, email, message });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error('Contact form delivery failed', error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json({ error: 'לא הצלחנו לקבל את הפרטים. נסו שוב.' }, { status: 500 });
   }
 }
