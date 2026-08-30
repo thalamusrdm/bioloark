@@ -22,7 +22,7 @@ export function SiteHeader() {
       <header className="site-header">
         <a className="brand" href="/" aria-label="Bioloark — דף הבית"><img src="/images/logo-header.png" alt="Bioloark" /></a>
         <nav className="desktop-nav" aria-label="ניווט ראשי">
-          {shopSections.map((section) => section.items.length ? <div className="nav-menu" key={section.title}><a className="nav-parent" href={section.href}>{section.title}<span>⌄</span></a><div className="nav-dropdown"><a href={section.href}>{section.title}</a>{section.items.slice(1).map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></div> : <a key={section.title} href={section.href}>{section.title}</a>)}<a href="/#about">קצת עלינו</a><a href="/project-showcase">פרויקטים</a>
+          {shopSections.map((section) => section.items.length ? <div className="nav-menu" key={section.title}><a className="nav-parent" href={section.href}>{section.title}<span>⌄</span></a><div className="nav-dropdown"><a href={section.href}>{section.title}</a>{section.items.map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></div> : <a key={section.title} href={section.href}>{section.title}</a>)}<a href="/#about">קצת עלינו</a><a href="/project-showcase">פרויקטים</a>
         </nav>
         <div className="header-actions">
           <button className="icon-button" onClick={() => setSearchOpen((value) => !value)} aria-expanded={searchOpen} aria-controls="header-search" aria-label="חיפוש"><span aria-hidden="true">⌕</span></button>
