@@ -723,8 +723,8 @@ p { text-wrap: pretty; }
     padding-inline: 14px;
   }
   .brand {
-    width: 108px;
-    height: 34px;
+    width: 118px;
+    height: 37px;
   }
   .header-actions { gap: 5px; }
   .header-actions .icon-button {
@@ -2025,8 +2025,8 @@ p { text-wrap: pretty; }
   .home-boutique .hero h1 { font-size: clamp(40px, 6vw, 54px); }
   .home-boutique .hero h1 .hero-brand-line { margin-bottom: .36em; font-size: .58em; transform: translateY(-34px); }
   .home-boutique .hero h1 .hero-tagline { font-size: clamp(32px, 5.2vw, 46px); }
-  .home-boutique .hero-copy { max-width: 95%; margin-block: clamp(24px, 3.2vw, 30px) clamp(28px, 3.8vw, 34px); font-size: clamp(14px, 1.9vw, 17px); line-height: 1.7; }
-  .home-boutique .hero-store-button { min-width: min(clamp(238px, 38vw, 300px), 100%); min-height: clamp(56px, 7vw, 64px); }
+  .home-boutique .hero-copy { min-height: 72px; max-width: 95%; margin-block: clamp(24px, 3.2vw, 30px) clamp(28px, 3.8vw, 34px); font-size: clamp(14px, 1.9vw, 17px); line-height: 1.7; }
+  .home-boutique .hero-store-button { min-width: min(clamp(238px, 38vw, 300px), 100%); min-height: clamp(56px, 7vw, 64px); transform: translateY(clamp(10px, calc(14vw - 35px), 82px)); }
   .home-boutique .hero-note { display: none; }
   .home-boutique .path-section { padding: 40px 18px 62px; }
   .home-boutique .collection-section { padding: 34px 18px 58px; }
@@ -2079,7 +2079,7 @@ p { text-wrap: pretty; }
 }
 
 @media (max-width: 560px) {
-  .home-boutique .hero-content { top: 162px; }
+  .home-boutique .hero-content { top: 182px; }
 }
 
 @keyframes mobile-menu-reveal {
