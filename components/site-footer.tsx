@@ -1,7 +1,9 @@
 import { getShopPolicies } from '../lib/commerce';
+import { localPolicies } from '../lib/local-policies';
 
 export async function SiteFooter() {
-  const policies = await getShopPolicies();
+  const shopPolicies = await getShopPolicies();
+  const policies = [...localPolicies, ...shopPolicies.filter((policy) => !localPolicies.some((local) => local.handle === policy.handle))];
   return (
     <footer className="site-footer">
       <div className="footer-main">
@@ -10,7 +12,7 @@ export async function SiteFooter() {
         <div><h3>יצירת קשר</h3><a href="mailto:info@bioloark.co.il">info@bioloark.co.il</a><p>מאפו 13, מרכז תל אביב<br />ישראל</p></div>
         <div><h3>שעות פעילות</h3><p>א׳–ה׳: 10:00–19:00<br />ו׳: 09:00–14:00</p><div className="social-links"><a href="https://www.instagram.com/bioloark_israel" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.facebook.com/BioloarkIsrael" target="_blank" rel="noreferrer">Facebook</a></div></div>
       </div>
-      <div className="footer-bottom"><span>© 2026 Bioloark. כל הזכויות שמורות.</span>{policies.length ? <nav aria-label="מדיניות החנות">{policies.map((policy) => <a href={`/policies/${policy.handle}`} key={policy.handle}>{policy.title}</a>)}</nav> : <span className="policy-placeholder">מדיניות החנות תופיע כאן לאחר חיבור Shopify</span>}</div>
+      <div className="footer-bottom"><span>© 2026 Bioloark. כל הזכויות שמורות.</span><nav aria-label="מדיניות החנות">{policies.map((policy) => <a href={`/policies/${policy.handle}`} key={policy.handle}>{policy.title}</a>)}</nav></div>
     </footer>
   );
 }
