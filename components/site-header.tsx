@@ -36,7 +36,7 @@ export function SiteHeader() {
               <span className="cart-count">{cart?.totalQuantity || 0}</span>
             </span>
           </button>
-          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label="פתיחת תפריט"><i /><i /><i /></button>
+          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label={menuOpen ? 'סגירת תפריט' : 'פתיחת תפריט'}><i /><i /><i /></button>
         </div>
       </header>
       {menuOpen && <div className="mobile-menu"><button onClick={() => setMenuOpen(false)} aria-label="סגירת תפריט">×</button><nav><a href="/category/all-products" aria-current={isCurrent('/category/all-products') ? 'page' : undefined}>כל המוצרים</a>{shopSections.map((section) => section.items.length ? <details key={section.title} data-current={section.items.some((item) => isCurrent(item.href)) || isCurrent(section.href) ? 'true' : undefined}><summary>{section.title}</summary><div>{section.items.map((item) => <a href={item.href} key={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.title}</a>)}</div></details> : <a href={section.href} key={section.title} aria-current={isCurrent(section.href) ? 'page' : undefined}>{section.title}</a>)}<a href="/project-showcase" aria-current={isCurrent('/project-showcase') ? 'page' : undefined}>פרויקטים נבחרים</a><a href="/#about">קצת עלינו</a></nav><p>מאפו 13, מרכז תל אביב<br />info@bioloark.co.il</p></div>}

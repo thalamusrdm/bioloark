@@ -1,5 +1,6 @@
 import { getShopPolicies } from '../lib/commerce';
 import { localPolicies } from '../lib/local-policies';
+import { AccessibilityRestoreButton } from './accessibility-widget';
 
 export async function SiteFooter() {
   const shopPolicies = await getShopPolicies();
@@ -12,7 +13,7 @@ export async function SiteFooter() {
         <div><h3>יצירת קשר</h3><a href="mailto:info@bioloark.co.il">info@bioloark.co.il</a><p>מאפו 13, מרכז תל אביב<br />ישראל</p></div>
         <div><h3>שעות פעילות</h3><p>א׳–ה׳: 10:00–19:00<br />ו׳: 09:00–14:00</p><div className="social-links"><a href="https://www.instagram.com/bioloark_israel" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.facebook.com/BioloarkIsrael" target="_blank" rel="noreferrer">Facebook</a></div></div>
       </div>
-      <div className="footer-bottom"><span>© 2026 Bioloark. כל הזכויות שמורות.</span><nav aria-label="מדיניות החנות">{policies.map((policy) => <a href={`/policies/${policy.handle}`} key={policy.handle}>{policy.title}</a>)}</nav></div>
+      <div className="footer-bottom"><span>© 2026 Bioloark. כל הזכויות שמורות.</span><nav aria-label="מדיניות החנות">{policies.map((policy) => <a href={`/policies/${policy.handle}`} key={policy.handle}>{policy.title}</a>)}<AccessibilityRestoreButton /></nav></div>
     </footer>
   );
 }

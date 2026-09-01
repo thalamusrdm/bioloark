@@ -2001,3 +2001,49 @@ p { text-wrap: pretty; }
     will-change: auto !important;
   }
 }
+
+/* Accessibility foundations and optional display controls */
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+.skip-link { position: fixed; z-index: 200; inset: 10px auto auto 10px; padding: 12px 18px; color: #fff; background: #000; transform: translateY(-150%); transition: transform .15s ease; }
+.skip-link:focus { transform: none; }
+:focus-visible { outline: 3px solid #e3bd70; outline-offset: 4px; }
+#main-content:focus { outline: 0; }
+.policy-page ul { max-width: 790px; margin: 0; padding-inline-start: 24px; color: #506057; font-size: 16px; line-height: 1.9; }
+.policy-page li + li { margin-top: 8px; }
+
+.accessibility-widget { position: fixed; z-index: 72; inset: auto auto 18px 18px; direction: rtl; }
+.accessibility-launcher { position: relative; display: flex; align-items: flex-start; }
+.accessibility-toggle { display: grid; place-items: center; gap: 2px; width: 68px; min-height: 64px; padding: 7px 5px 6px; border: 1px solid rgba(255,255,255,.35); border-radius: 14px; color: #fff; background: #0b2a20; box-shadow: 0 8px 28px rgba(4,20,15,.24); cursor: pointer; }
+.accessibility-toggle svg { width: 31px; height: 31px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.accessibility-toggle svg circle { fill: currentColor; stroke: none; }
+.accessibility-toggle span { font-size: 12px; font-weight: 650; }
+.accessibility-hide { position: absolute; inset: -8px -8px auto auto; display: grid; place-items: center; width: 23px; height: 23px; padding: 0; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; color: #fff; background: #15241e; font-size: 17px; line-height: 1; cursor: pointer; }
+.accessibility-panel { position: absolute; inset: auto auto 76px 0; width: min(330px, calc(100vw - 30px)); padding: 20px; color: #15241e; background: #faf8f2; border: 1px solid rgba(21,36,30,.22); border-radius: 16px; box-shadow: 0 22px 60px rgba(4,20,15,.3); }
+.accessibility-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.accessibility-panel h2 { margin: 0; font-size: 25px; font-weight: 620; }
+.accessibility-panel-head button { width: 35px; height: 35px; padding: 0; border: 1px solid rgba(21,36,30,.2); border-radius: 50%; background: transparent; font-size: 25px; cursor: pointer; }
+.accessibility-panel > p { margin: 10px 0 16px; color: #415248; font-size: 14px; line-height: 1.55; }
+.accessibility-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.accessibility-options button { min-height: 48px; padding: 9px 10px; border: 1px solid rgba(21,36,30,.2); border-radius: 8px; background: #fff; font-size: 13px; cursor: pointer; }
+.accessibility-options button.active { color: #fff; background: #0b2a20; border-color: #0b2a20; }
+.accessibility-panel-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(21,36,30,.15); font-size: 13px; }
+.accessibility-panel-actions button, .accessibility-restore { padding: 0; border: 0; background: transparent; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.accessibility-panel-actions a { text-decoration: underline; text-underline-offset: 3px; }
+.accessibility-restore { color: inherit; font: inherit; }
+
+html.a11y-readable body, html.a11y-readable h1, html.a11y-readable h2, html.a11y-readable h3, html.a11y-readable h4, html.a11y-readable p, html.a11y-readable a, html.a11y-readable button, html.a11y-readable input, html.a11y-readable textarea, html.a11y-readable select { font-family: Arial, sans-serif !important; letter-spacing: normal !important; }
+html.a11y-links a:not(.primary-button):not(.outline-button) { text-decoration: underline !important; text-decoration-thickness: 2px !important; text-underline-offset: 4px !important; }
+html.a11y-grayscale body { filter: grayscale(1); }
+html.a11y-contrast body { color: #000; background: #fff; }
+html.a11y-contrast .site-header, html.a11y-contrast .site-footer, html.a11y-contrast .mobile-menu, html.a11y-contrast .testimonials-section, html.a11y-contrast .terrarium-feature { color: #fff; background-color: #000; }
+html.a11y-contrast .policy-page p, html.a11y-contrast .policy-page ul, html.a11y-contrast .search-results > p { color: #111; }
+html.a11y-contrast :focus-visible { outline-color: #ffdb00; outline-width: 4px; }
+html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+
+@media (max-width: 620px) {
+  .accessibility-widget { inset: auto auto 12px 12px; }
+  .accessibility-toggle { width: 58px; min-height: 56px; }
+  .accessibility-toggle svg { width: 27px; height: 27px; }
+  .accessibility-panel { inset-block-end: 66px; width: min(315px, calc(100vw - 24px)); padding: 17px; }
+  .policy-page ul { font-size: 15px; line-height: 1.8; }
+}
