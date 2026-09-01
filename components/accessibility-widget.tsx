@@ -60,7 +60,7 @@ export function AccessibilityWidget() {
       <div className="accessibility-panel-actions"><button type="button" onClick={reset}>איפוס התאמות</button><a href="/policies/accessibility-statement">הצהרת נגישות</a></div>
     </div>}
     <div className="accessibility-launcher">
-      <button className="accessibility-toggle" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="accessibility-panel" aria-label="פתיחת כלי נגישות"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="8" r="4" /><path d="M10 17h28M24 17v11M24 28 15 42M24 28l9 14M16 18l3 10M32 18l-3 10" /></svg><span>נגישות</span></button>
+      <button className="accessibility-toggle" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="accessibility-panel" aria-label="פתיחת כלי נגישות"><img src="/images/accessibility-hands.png" alt="" aria-hidden="true" /><span>נגישות</span></button>
       <button className="accessibility-hide" type="button" onClick={hide} aria-label="הסתרת כפתור הנגישות">×</button>
     </div>
   </aside>;

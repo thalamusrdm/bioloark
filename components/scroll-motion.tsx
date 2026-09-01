@@ -8,6 +8,7 @@ export function ScrollMotion() {
     const media = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-media]'));
     const reveals = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
     const spotlights = Array.from(document.querySelectorAll<HTMLElement>('[data-spotlight]'));
+    const touchPanStates = new WeakMap<HTMLElement, { startX: number; startPosition: number }>();
 
     if (reduceMotion.matches) {
       reveals.forEach((element) => element.classList.add('is-visible'));
@@ -68,11 +69,21 @@ export function ScrollMotion() {
     };
 
     const moveSpotlight = (event: PointerEvent) => {
-      if (event.pointerType === 'touch') return;
       const element = event.currentTarget as HTMLElement;
+      const mobileTouch = event.pointerType === 'touch' && window.innerWidth <= 900 && element.classList.contains('terrarium-feature');
+      if (event.pointerType === 'touch' && !mobileTouch) return;
       const bounds = element.getBoundingClientRect();
       element.style.setProperty('--spotlight-x', `${event.clientX - bounds.left}px`);
       element.style.setProperty('--spotlight-y', `${event.clientY - bounds.top}px`);
+
+      if (mobileTouch) {
+        const state = touchPanStates.get(element);
+        const image = element.querySelector<HTMLImageElement>(':scope > img');
+        if (!state || !image) return;
+        const nextPosition = Math.max(0, Math.min(100, state.startPosition - ((event.clientX - state.startX) / bounds.width) * 100));
+        element.dataset.mobileImagePosition = nextPosition.toFixed(2);
+        image.style.objectPosition = `${nextPosition.toFixed(2)}% center`;
+      }
     };
 
     const showSpotlight = (event: PointerEvent) => {
@@ -86,13 +97,31 @@ export function ScrollMotion() {
       (event.currentTarget as HTMLElement).classList.remove('is-spotlight-active');
     };
 
+    const startTouchSpotlight = (event: PointerEvent) => {
+      const element = event.currentTarget as HTMLElement;
+      if (event.pointerType !== 'touch' || window.innerWidth > 900 || !element.classList.contains('terrarium-feature')) return;
+      touchPanStates.set(element, { startX: event.clientX, startPosition: Number(element.dataset.mobileImagePosition || 50) });
+      element.classList.add('is-spotlight-active', 'is-touch-panning');
+      moveSpotlight(event);
+    };
+
+    const endTouchSpotlight = (event: PointerEvent) => {
+      const element = event.currentTarget as HTMLElement;
+      if (event.pointerType !== 'touch') return;
+      touchPanStates.delete(element);
+      element.classList.remove('is-spotlight-active', 'is-touch-panning');
+    };
+
     const pendingImages = media.filter(
       (element): element is HTMLImageElement => element instanceof HTMLImageElement && !element.complete,
     );
     pendingImages.forEach((image) => image.addEventListener('load', requestUpdate, { once: true }));
     spotlights.forEach((element) => {
       element.addEventListener('pointerenter', showSpotlight);
+      element.addEventListener('pointerdown', startTouchSpotlight);
       element.addEventListener('pointermove', moveSpotlight);
+      element.addEventListener('pointerup', endTouchSpotlight);
+      element.addEventListener('pointercancel', endTouchSpotlight);
       element.addEventListener('pointerleave', hideSpotlight);
     });
 
@@ -108,7 +137,10 @@ export function ScrollMotion() {
       pendingImages.forEach((image) => image.removeEventListener('load', requestUpdate));
       spotlights.forEach((element) => {
         element.removeEventListener('pointerenter', showSpotlight);
+        element.removeEventListener('pointerdown', startTouchSpotlight);
         element.removeEventListener('pointermove', moveSpotlight);
+        element.removeEventListener('pointerup', endTouchSpotlight);
+        element.removeEventListener('pointercancel', endTouchSpotlight);
         element.removeEventListener('pointerleave', hideSpotlight);
       });
     };
