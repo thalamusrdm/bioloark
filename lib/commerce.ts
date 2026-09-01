@@ -7,19 +7,25 @@ const previewCatalog = catalogJson as Catalog;
 const API_VERSION = process.env.SHOPIFY_API_VERSION || '2026-07';
 
 export function shopifyIsConfigured() {
-  return Boolean(process.env.SHOPIFY_STORE_DOMAIN && process.env.SHOPIFY_STOREFRONT_PRIVATE_TOKEN);
+  return Boolean(
+    process.env.SHOPIFY_STORE_DOMAIN &&
+    (process.env.SHOPIFY_STOREFRONT_PUBLIC_TOKEN || process.env.SHOPIFY_STOREFRONT_PRIVATE_TOKEN),
+  );
 }
 
 async function shopifyFetch<T>(query: string, variables: Record<string, unknown> = {}, buyerIp?: string): Promise<T> {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
-  const token = process.env.SHOPIFY_STOREFRONT_PRIVATE_TOKEN;
-  if (!domain || !token) throw new Error('Shopify is not configured');
+  const publicToken = process.env.SHOPIFY_STOREFRONT_PUBLIC_TOKEN;
+  const privateToken = process.env.SHOPIFY_STOREFRONT_PRIVATE_TOKEN;
+  if (!domain || (!publicToken && !privateToken)) throw new Error('Shopify is not configured');
   const response = await fetch(`https://${domain}/api/${API_VERSION}/graphql.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Shopify-Storefront-Private-Token': token,
-      ...(buyerIp ? { 'Shopify-Storefront-Buyer-IP': buyerIp } : {}),
+      ...(publicToken
+        ? { 'X-Shopify-Storefront-Access-Token': publicToken }
+        : { 'Shopify-Storefront-Private-Token': privateToken! }),
+      ...(!publicToken && buyerIp ? { 'Shopify-Storefront-Buyer-IP': buyerIp } : {}),
     },
     body: JSON.stringify({ query, variables }),
     cache: 'no-store',
@@ -137,13 +143,15 @@ export async function cartQuery(id: string, buyerIp?: string) {
   return data.cart ? mapCart(data.cart) : undefined;
 }
 export async function cartCreate(merchandiseId: string, quantity: number, buyerIp?: string) {
-  const data = await shopifyFetch<{ cartCreate: { cart: any; userErrors: { message: string }[] } }>(`mutation CartCreate($input: CartInput!) { cartCreate(input: $input) { cart { ${cartFields} } userErrors { message } } }`, { input: { buyerIdentity: { countryCode: 'IL' }, lines: [{ merchandiseId, quantity }] } }, buyerIp);
+  const data = await shopifyFetch<{ cartCreate: { cart: any; userErrors: { message: string }[]; warnings: { message: string }[] } }>(`mutation CartCreate($input: CartInput!) { cartCreate(input: $input) { cart { ${cartFields} } userErrors { message } warnings { message } } }`, { input: { buyerIdentity: { countryCode: 'IL' }, lines: [{ merchandiseId, quantity }] } }, buyerIp);
   if (data.cartCreate.userErrors.length) throw new Error(data.cartCreate.userErrors[0].message);
+  if (data.cartCreate.warnings.length || !data.cartCreate.cart?.totalQuantity) throw new Error(data.cartCreate.warnings[0]?.message || 'המוצר לא נוסף לסל');
   return mapCart(data.cartCreate.cart);
 }
 export async function cartLinesAdd(id: string, merchandiseId: string, quantity: number, buyerIp?: string) {
-  const data = await shopifyFetch<{ cartLinesAdd: { cart: any; userErrors: { message: string }[] } }>(`mutation Add($cartId: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ${cartFields} } userErrors { message } } }`, { cartId: id, lines: [{ merchandiseId, quantity }] }, buyerIp);
+  const data = await shopifyFetch<{ cartLinesAdd: { cart: any; userErrors: { message: string }[]; warnings: { message: string }[] } }>(`mutation Add($cartId: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ${cartFields} } userErrors { message } warnings { message } } }`, { cartId: id, lines: [{ merchandiseId, quantity }] }, buyerIp);
   if (data.cartLinesAdd.userErrors.length) throw new Error(data.cartLinesAdd.userErrors[0].message);
+  if (data.cartLinesAdd.warnings.length) throw new Error(data.cartLinesAdd.warnings[0].message);
   return mapCart(data.cartLinesAdd.cart);
 }
 export async function cartLinesUpdate(id: string, lineId: string, quantity: number, buyerIp?: string) {

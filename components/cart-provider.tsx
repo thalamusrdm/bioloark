@@ -41,7 +41,11 @@ export function CartProvider({ children, shopifyEnabled }: { children: React.Rea
   const value = useMemo<CartContextValue>(() => ({
     cart, isOpen, loading, error, shopifyEnabled,
     open: () => { setOpen(true); if (shopifyEnabled && !cart) void request().catch(() => undefined); }, close: () => setOpen(false),
-    add: async (merchandiseId, quantity = 1) => { if (!shopifyEnabled) { setOpen(true); return; } await request({ action: 'add', merchandiseId, quantity }); setOpen(true); },
+    add: async (merchandiseId, quantity = 1) => {
+      setOpen(true);
+      if (!shopifyEnabled) return;
+      await request({ action: 'add', merchandiseId, quantity }).catch(() => undefined);
+    },
     update: async (lineId, quantity) => { await request({ action: 'update', lineId, quantity }); },
     remove: async (lineId) => { await request({ action: 'remove', lineId }); },
   }), [cart, isOpen, loading, error, shopifyEnabled, request]);

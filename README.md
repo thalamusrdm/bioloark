@@ -19,7 +19,7 @@ npm run content:sync
 
 1. מתקינים בחנות Shopify את ערוץ המכירה **Headless** ויוצרים Storefront.
 2. מעניקים הרשאות לקריאת מוצרים, אוספים, תוכן ומדיניות, ולניהול סל.
-3. מעתיקים את `.env.example` אל `.env.local` וממלאים את דומיין החנות ואת הטוקן הפרטי.
+3. מעתיקים את `.env.example` אל `.env.local` וממלאים את דומיין החנות ואת הטוקן הציבורי או הפרטי. טוקן ציבורי נשלח בכותרת הציבורית של Shopify; טוקן פרטי נשאר בצד השרת בלבד.
 4. מוודאים שה־handles של המוצרים והאוספים תואמים ל־slugs שבאתר הישן.
 5. מריצים Build ובודקים מוצר, וריאנט, סל ומעבר ל־Shopify Checkout.
 
@@ -35,7 +35,7 @@ npm run content:sync
 `vercel.json` מקבע את `buildCommand` ל־`next build` כדי ש־Vercel לא ירים בטעות את מסלול ה־Workers. `postcss.config.mjs` נדרש כדי ש־Tailwind יעבוד במסלול של Next (ב־Vite אותו תוסף מוגדר ישירות ב־`vite.config.ts`, ולכן הקובץ אינו משפיע עליו).
 
 לפני פריסה יש להגדיר ב־Vercel את משתני הסביבה מתוך `.env.example`:
-`SHOPIFY_STORE_DOMAIN`, `SHOPIFY_STOREFRONT_PRIVATE_TOKEN`, `SHOPIFY_API_VERSION`.
+`SHOPIFY_STORE_DOMAIN`, אחד מבין `SHOPIFY_STOREFRONT_PUBLIC_TOKEN` או `SHOPIFY_STOREFRONT_PRIVATE_TOKEN`, ו־`SHOPIFY_API_VERSION`.
 בלעדיהם ה־Build יעבור, אך האתר יוגש במצב קטלוג Preview ללא רכישה.
 
 ## נתיבים חשובים
