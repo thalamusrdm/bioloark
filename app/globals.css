@@ -277,6 +277,12 @@ button { color: inherit; font: inherit; }
 .policy-page p { max-width: 790px; margin: 0 0 14px; color: #506057; font-size: 16px; line-height: 1.9; }
 .policy-page p:last-child { margin-bottom: 0; }
 .policy-page a { color: var(--forest); text-decoration: underline; text-underline-offset: 3px; }
+.workshops-page { min-height: 82svh; display: grid; place-items: center; padding: 160px 24px 110px; background: var(--cream); }
+.workshops-page > section { width: min(760px, 100%); padding: clamp(48px, 7vw, 84px); border: 1px solid rgba(19,37,30,.16); text-align: center; background: rgba(255,255,255,.34); }
+.workshops-page .eyebrow { text-align: center; }
+.workshops-page h1 { margin: 0; color: var(--forest); font-size: clamp(52px, 8vw, 92px); font-weight: 430; line-height: .98; letter-spacing: -.055em; }
+.workshops-page section > p:not(.eyebrow) { max-width: 590px; margin: 30px auto 38px; color: #536158; font-size: clamp(16px, 2vw, 19px); line-height: 1.8; }
+.workshops-page .contact-trigger { margin-inline: auto; }
 .not-found { text-align: center; }
 .not-found > p { margin: 30px 0; }
 
@@ -339,6 +345,9 @@ button { color: inherit; font: inherit; }
   .policy-page section { padding: 24px 0; }
   .policy-page h2 { font-size: 23px; }
   .policy-page p { font-size: 15px; line-height: 1.8; }
+  .workshops-page { min-height: 76svh; padding: 104px 18px 58px; }
+  .workshops-page > section { padding: 44px 20px 48px; }
+  .workshops-page h1 { font-size: 46px; }
   .buy-row { display: grid; }
   .product-quantity { justify-self: start; }
   .projects-hero { min-height: 500px; padding-inline: 24px; }
@@ -1991,8 +2000,25 @@ p { text-wrap: pretty; }
     white-space: nowrap;
   }
   .mobile-menu details[open] > div { animation: mobile-menu-reveal .24s ease both; }
+  .mobile-menu .mobile-menu-social {
+    display: flex;
+    direction: ltr;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,.16);
+  }
+  .mobile-menu .mobile-menu-social a {
+    padding: 3px 0;
+    color: #d9c28e;
+    font-size: 10px;
+    font-weight: 650;
+    line-height: 1.4;
+    letter-spacing: .1em;
+  }
   .mobile-menu > p {
-    margin: 20px 0 0;
+    margin: 14px 0 0;
     font-size: 12px;
     line-height: 1.45;
   }
@@ -2040,17 +2066,17 @@ p { text-wrap: pretty; }
   .home-boutique .path-heading h2 { font-size: 32px; }
   .home-boutique .product-grid { gap: 10px; row-gap: 38px; }
   .home-boutique .product-image-wrap { aspect-ratio: 4 / 5; }
-  .home-boutique .product-carousel-track { align-items: stretch; gap: 8px; cursor: default; scroll-snap-type: x mandatory; }
-  .home-boutique .product-carousel-track .product-card { flex: 0 0 clamp(86px, 25.5vw, 150px); scroll-snap-align: start; }
+  .home-boutique .product-carousel-track { align-items: stretch; gap: 7px; cursor: default; scroll-snap-type: x mandatory; }
+  .home-boutique .product-carousel-track .product-card { flex: 0 0 calc((100% - 24.5px) / 4.5); scroll-snap-align: start; }
   .home-boutique .product-carousel-track .product-card > a { display: flex; flex: 1; flex-direction: column; }
   .home-boutique .product-carousel-toolbar { margin-bottom: 13px; padding-inline: 1px; }
   .home-boutique .product-carousel-toolbar p { font-size: 10px; }
   .home-boutique .product-carousel-toolbar button { width: 38px; height: 34px; font-size: 15px; }
-  .home-boutique .product-carousel-track .product-meta { display: grid; grid-template-rows: 1fr auto; min-height: 112px; flex: 1; gap: 7px; padding-top: 11px; }
-  .home-boutique .product-carousel-track .product-meta h3 { margin-bottom: 4px; font-size: 12px; line-height: 1.25; }
-  .home-boutique .product-carousel-track .product-meta p { font-size: 9px; line-height: 1.25; overflow-wrap: anywhere; }
-  .home-boutique .product-carousel-track .product-meta strong { align-self: end; margin-top: 0; padding-bottom: 2px; font-size: 11px; }
-  .home-boutique .product-quick-add { min-height: 34px; margin-top: 8px; font-size: 10px; }
+  .home-boutique .product-carousel-track .product-meta { display: grid; grid-template-rows: 1fr auto; min-height: 94px; flex: 1; gap: 5px; padding-top: 8px; }
+  .home-boutique .product-carousel-track .product-meta h3 { margin-bottom: 3px; font-size: 10px; line-height: 1.2; }
+  .home-boutique .product-carousel-track .product-meta p { font-size: 7.5px; line-height: 1.2; overflow-wrap: anywhere; }
+  .home-boutique .product-carousel-track .product-meta strong { align-self: end; margin-top: 0; padding-bottom: 1px; font-size: 9px; }
+  .home-boutique .product-quick-add { min-height: 30px; margin-top: 6px; padding-inline: 3px; font-size: 8.5px; }
   .home-boutique .terrarium-feature { min-height: 56svh; padding: 30px 20px 42px; }
   .home-boutique .terrarium-feature { touch-action: pan-y; }
   .home-boutique .terrarium-feature > img { object-position: var(--mobile-image-x, 50%) center; will-change: object-position; }

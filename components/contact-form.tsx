@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 
-export function ContactForm() {
+export function ContactForm({ triggerLabel = 'יצירת קשר וייעוץ' }: { triggerLabel?: string } = {}) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -36,7 +36,7 @@ export function ContactForm() {
   return (
     <>
       <button className="primary-button dark-button contact-trigger" type="button" onClick={() => { setOpen(true); setStatus('idle'); }}>
-        יצירת קשר וייעוץ <span>←</span>
+        {triggerLabel} <span>←</span>
       </button>
       {open && <div className="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
         <div className="contact-dialog">
