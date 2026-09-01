@@ -70,13 +70,13 @@ export function ScrollMotion() {
 
     const moveSpotlight = (event: PointerEvent) => {
       const element = event.currentTarget as HTMLElement;
-      const mobileTouch = event.pointerType === 'touch' && window.innerWidth <= 900 && element.classList.contains('terrarium-feature');
+      const mobileTouch = event.pointerType === 'touch' && window.innerWidth <= 900 && (element.classList.contains('terrarium-feature') || element.classList.contains('hero'));
       if (event.pointerType === 'touch' && !mobileTouch) return;
       const bounds = element.getBoundingClientRect();
       element.style.setProperty('--spotlight-x', `${event.clientX - bounds.left}px`);
       element.style.setProperty('--spotlight-y', `${event.clientY - bounds.top}px`);
 
-      if (mobileTouch) {
+      if (mobileTouch && element.classList.contains('terrarium-feature')) {
         const state = touchPanStates.get(element);
         const image = element.querySelector<HTMLImageElement>(':scope > img');
         if (!state || !image) return;
@@ -99,17 +99,37 @@ export function ScrollMotion() {
 
     const startTouchSpotlight = (event: PointerEvent) => {
       const element = event.currentTarget as HTMLElement;
-      if (event.pointerType !== 'touch' || window.innerWidth > 900 || !element.classList.contains('terrarium-feature')) return;
-      touchPanStates.set(element, { startX: event.clientX, startPosition: Number(element.dataset.mobileImagePosition || 50) });
-      element.classList.add('is-spotlight-active', 'is-touch-panning');
+      if (event.pointerType !== 'touch' || window.innerWidth > 900 || (!element.classList.contains('terrarium-feature') && !element.classList.contains('hero'))) return;
+      if (element.classList.contains('terrarium-feature')) {
+        touchPanStates.set(element, { startX: event.clientX, startPosition: Number(element.dataset.mobileImagePosition || 50) });
+        element.classList.add('is-touch-panning');
+      }
+      element.classList.add('is-spotlight-active');
       moveSpotlight(event);
     };
 
     const endTouchSpotlight = (event: PointerEvent) => {
       const element = event.currentTarget as HTMLElement;
       if (event.pointerType !== 'touch') return;
+      if (element.classList.contains('hero')) return;
       touchPanStates.delete(element);
       element.classList.remove('is-spotlight-active', 'is-touch-panning');
+    };
+
+    const moveHeroTouchSpotlight = (event: TouchEvent) => {
+      const element = event.currentTarget as HTMLElement;
+      if (!element.classList.contains('hero') || window.innerWidth > 900) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      const bounds = element.getBoundingClientRect();
+      element.style.setProperty('--spotlight-x', `${touch.clientX - bounds.left}px`);
+      element.style.setProperty('--spotlight-y', `${touch.clientY - bounds.top}px`);
+      element.classList.add('is-spotlight-active');
+    };
+
+    const endHeroTouchSpotlight = (event: TouchEvent) => {
+      const element = event.currentTarget as HTMLElement;
+      if (element.classList.contains('hero')) element.classList.remove('is-spotlight-active');
     };
 
     const pendingImages = media.filter(
@@ -123,6 +143,10 @@ export function ScrollMotion() {
       element.addEventListener('pointerup', endTouchSpotlight);
       element.addEventListener('pointercancel', endTouchSpotlight);
       element.addEventListener('pointerleave', hideSpotlight);
+      element.addEventListener('touchstart', moveHeroTouchSpotlight, { passive: true });
+      element.addEventListener('touchmove', moveHeroTouchSpotlight, { passive: true });
+      element.addEventListener('touchend', endHeroTouchSpotlight);
+      element.addEventListener('touchcancel', endHeroTouchSpotlight);
     });
 
     update();
@@ -142,6 +166,10 @@ export function ScrollMotion() {
         element.removeEventListener('pointerup', endTouchSpotlight);
         element.removeEventListener('pointercancel', endTouchSpotlight);
         element.removeEventListener('pointerleave', hideSpotlight);
+        element.removeEventListener('touchstart', moveHeroTouchSpotlight);
+        element.removeEventListener('touchmove', moveHeroTouchSpotlight);
+        element.removeEventListener('touchend', endHeroTouchSpotlight);
+        element.removeEventListener('touchcancel', endHeroTouchSpotlight);
       });
     };
   }, []);

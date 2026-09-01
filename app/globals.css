@@ -1470,6 +1470,24 @@ p { text-wrap: pretty; }
   will-change: transform;
 }
 
+.home-boutique .hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle 190px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(255,255,235,.055), rgba(255,255,235,.015) 56%, transparent 77%);
+  mix-blend-mode: screen;
+  transition: opacity .28s ease;
+}
+
+.home-boutique .hero.is-spotlight-active .hero-image::after { opacity: 1; }
+
+.home-boutique .hero.is-spotlight-active .hero-veil {
+  -webkit-mask-image: radial-gradient(circle 240px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), transparent 0 58%, rgba(0,0,0,.3) 76%, #000 100%);
+  mask-image: radial-gradient(circle 240px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), transparent 0 58%, rgba(0,0,0,.3) 76%, #000 100%);
+}
+
 @media (min-width: 901px) {
   .home-boutique .hero-image { background-size: 106% auto; }
 }
@@ -2032,9 +2050,11 @@ p { text-wrap: pretty; }
     background-color: #07110d;
     background-image: url('/images/hero-bioloark-mobile-v1.webp');
     background-position: center;
-    background-size: contain;
+    background-size: 103.5% auto;
     transform: none;
   }
+  .home-boutique .hero-image::after { background: radial-gradient(circle 104px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(255,255,235,.07), rgba(255,255,235,.018) 58%, transparent 79%); }
+  .home-boutique .hero.is-spotlight-active .hero-veil { -webkit-mask-image: radial-gradient(circle 130px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), transparent 0 56%, rgba(0,0,0,.3) 75%, #000 100%); mask-image: radial-gradient(circle 130px at var(--spotlight-x, 50%) var(--spotlight-y, 50%), transparent 0 56%, rgba(0,0,0,.3) 75%, #000 100%); }
   .home-boutique .hero-veil {
     background:
       linear-gradient(0deg, rgba(2,12,9,.92) 0%, rgba(2,12,9,.48) 38%, rgba(2,12,9,.08) 72%),
@@ -2054,10 +2074,10 @@ p { text-wrap: pretty; }
   .home-boutique .hero-copy { min-height: 72px; max-width: 95%; margin-block: clamp(24px, 3.2vw, 30px) clamp(28px, 3.8vw, 34px); font-size: clamp(14px, 1.9vw, 17px); line-height: 1.7; }
   .home-boutique .hero-store-button { min-width: min(clamp(238px, 38vw, 300px), 100%); min-height: clamp(56px, 7vw, 64px); transform: translateY(clamp(10px, calc(14vw - 35px), 82px)); }
   .home-boutique .hero-note { display: none; }
-  .home-boutique .path-section { padding: 40px 18px 62px; }
-  .home-boutique .collection-section { padding: 34px 18px 58px; }
-  .home-boutique .services-section { padding: 42px 18px 64px; }
-  .home-boutique .testimonials-section { padding: 42px 18px 72px; }
+  .home-boutique .path-section { padding: 20px 18px 62px; }
+  .home-boutique .collection-section { padding: 17px 18px 58px; }
+  .home-boutique .services-section { padding: 21px 18px 64px; }
+  .home-boutique .testimonials-section { padding: 21px 18px 72px; }
   .home-boutique .collection-section .section-heading { align-items: end; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(16,35,28,.14); }
   .home-boutique .section-heading h2 { font-size: 28px; white-space: nowrap; }
   .home-boutique .services-intro h2,
@@ -2092,20 +2112,116 @@ p { text-wrap: pretty; }
   .home-boutique .service-image span { display: none; }
   .home-boutique .service-card h3 { min-height: 0; margin: 10px 0 6px; font-size: 16px; line-height: 1.1; }
   .home-boutique .service-card > p { margin: 0; font-size: 10px; line-height: 1.45; }
-  .home-boutique .about-image { min-height: 42svh; }
-  .home-boutique .about-copy { padding: 38px 22px 56px; }
+  .home-boutique .about-section { display: block; min-height: 0; padding-top: 0; }
+  .home-boutique .about-image {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 5366 / 2995;
+    margin: 0;
+    border-radius: 0;
+    background: #07110d;
+  }
+  .home-boutique .about-image img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: none !important;
+  }
+  .home-boutique .about-copy { position: relative; z-index: 1; margin: 0; padding: 14px 22px 56px; }
   .home-boutique .testimonial-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .home-boutique .testimonial-grid blockquote { padding: 18px 8px 6px; border-top: 0; border-inline-start: 1px solid rgba(255,255,255,.18); }
   .home-boutique .testimonial-grid blockquote:last-child { border-inline-start: 0; }
   .home-boutique .testimonial-grid blockquote > span { font-size: 9px; }
   .home-boutique .testimonial-grid blockquote p { min-height: 0; margin: 14px 0 12px; font-size: 12px; line-height: 1.4; }
   .home-boutique .testimonial-grid cite { font-size: 9px; line-height: 1.35; }
-  .home-boutique .contact-band { padding: 42px 18px 64px; }
+  .home-boutique .contact-band { padding: 21px 18px 64px; }
   .home-boutique .contact-band h2 { font-size: 37px; }
 }
 
 @media (max-width: 560px) {
   .home-boutique .hero-content { top: 182px; }
+}
+
+@media (min-width: 901px) {
+  .home-boutique .hero-image::after {
+    display: none;
+  }
+
+  .home-boutique .hero.is-spotlight-active .hero-veil {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .home-boutique .path-section { padding-top: clamp(40px, 4vw, 68px); }
+  .home-boutique .collection-section { padding-top: clamp(28px, 2.5vw, 40px); }
+  .home-boutique .services-section { padding-top: clamp(42px, 4.1vw, 66px); }
+  .home-boutique .testimonials-section { padding-top: clamp(42px, 3.75vw, 60px); }
+  .home-boutique .contact-band { padding-top: clamp(43px, 4.1vw, 68px); }
+
+  .home-boutique .hero {
+    min-height: max(760px, 100svh);
+    padding: 132px clamp(44px, 6vw, 96px) 76px;
+    background: #07110d;
+  }
+
+  .home-boutique .hero-image {
+    inset: 0 auto 0 0;
+    width: 60%;
+    background-color: #07110d;
+    background-image: url('/images/hero-bioloark-mobile-v1.webp');
+    background-position: left bottom;
+    background-size: auto 110%;
+    background-repeat: no-repeat;
+    transform: none !important;
+  }
+
+  .home-boutique .hero-veil {
+    background:
+      linear-gradient(90deg, rgba(7,17,13,.02) 0%, rgba(7,17,13,.08) 47%, rgba(7,17,13,.88) 64%, #07110d 100%),
+      linear-gradient(0deg, rgba(2,12,9,.48), transparent 42%);
+  }
+
+  .home-boutique .hero-content {
+    top: -75px;
+    width: min(490px, 38vw);
+    max-width: none;
+    margin: 0 0 0 auto;
+    text-align: right;
+  }
+
+  .home-boutique .hero .eyebrow { margin-bottom: 24px; }
+  .home-boutique .hero h1 { max-width: 490px; font-size: clamp(46px, 4.35vw, 66px); line-height: .96; }
+  .home-boutique .hero h1 .hero-brand-line { margin-bottom: .34em; font-size: .58em; }
+  .home-boutique .hero-copy { max-width: 470px; margin-block: 25px 30px; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.7; }
+  .home-boutique .hero-store-button { min-width: 250px; }
+
+  .home-boutique .about-section {
+    display: block;
+    min-height: 0;
+  }
+
+  .home-boutique .about-image {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 5366 / 2995;
+  }
+
+  .home-boutique .about-image img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: none !important;
+  }
+
+  .home-boutique .about-copy {
+    width: min(1120px, 100%);
+    margin-inline: auto;
+    padding: 20px clamp(38px, 7vw, 118px) 96px;
+  }
 }
 
 @keyframes mobile-menu-reveal {
