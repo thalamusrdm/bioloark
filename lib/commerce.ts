@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import catalogJson from '../data/catalog.json';
-import type { Cart, Collection, Money, Product, ProductImage, ProductVariant, ShopPolicy } from './types';
+import { previewArticles } from '../data/articles';
+import type { BlogArticle, Cart, Collection, Money, Product, ProductImage, ProductVariant, ShopPolicy } from './types';
 
 type Catalog = { products: Product[]; collections: Collection[] };
 const previewCatalog = catalogJson as Catalog;
@@ -120,6 +121,45 @@ export async function getShopPolicies(): Promise<ShopPolicy[]> {
     const data = await shopifyFetch<{ shop: Record<string, ShopPolicy | null> }>(`query Policies { shop { privacyPolicy { title body url handle } refundPolicy { title body url handle } shippingPolicy { title body url handle } termsOfService { title body url handle } } }`);
     return Object.values(data.shop).filter((policy): policy is ShopPolicy => Boolean(policy));
   } catch { return []; }
+}
+
+const articleFields = `
+  id title handle excerpt contentHtml publishedAt tags
+  image { url altText width height }
+  authorV2 { name }
+`;
+
+function mapArticle(node: any): BlogArticle {
+  return {
+    id: node.id,
+    title: node.title,
+    handle: node.handle,
+    excerpt: node.excerpt || '',
+    contentHtml: node.contentHtml || '',
+    publishedAt: node.publishedAt,
+    image: node.image ? { ...node.image, altText: node.image.altText || node.title } : undefined,
+    author: node.authorV2?.name || 'צוות Bioloark',
+    tags: node.tags || [],
+    source: 'shopify',
+  };
+}
+
+export async function getBlogArticles(): Promise<BlogArticle[]> {
+  if (!shopifyIsConfigured()) return previewArticles;
+  try {
+    const data = await shopifyFetch<{ articles: { nodes: any[] } }>(`query Articles { articles(first: 40, sortKey: PUBLISHED_AT, reverse: true) { nodes { ${articleFields} } } }`);
+    return data.articles.nodes.length ? data.articles.nodes.map(mapArticle) : previewArticles;
+  } catch { return previewArticles; }
+}
+
+export async function getBlogArticle(handle: string): Promise<BlogArticle | undefined> {
+  const decoded = decodeURIComponent(handle);
+  if (!shopifyIsConfigured()) return previewArticles.find((article) => article.handle === decoded);
+  try {
+    const data = await shopifyFetch<{ blogs: { nodes: { articleByHandle?: any }[] } }>(`query Article($handle: String!) { blogs(first: 20) { nodes { articleByHandle(handle: $handle) { ${articleFields} } } } }`, { handle: decoded });
+    const article = data.blogs.nodes.map((blog) => blog.articleByHandle).find(Boolean);
+    return article ? mapArticle(article) : previewArticles.find((item) => item.handle === decoded);
+  } catch { return previewArticles.find((article) => article.handle === decoded); }
 }
 
 const cartFields = `

@@ -2224,6 +2224,118 @@ p { text-wrap: pretty; }
   }
 }
 
+/* Blog and field guides */
+.blog-page, .article-page { background: var(--boutique-ivory, #eee8da); color: var(--ink); }
+.blog-hero { min-height: 245px; display: flex; flex-direction: column; justify-content: end; padding: 82px 5vw 34px; background: #092019; color: #fff; }
+.blog-hero h1 { margin: 0; font: 430 clamp(46px, 5vw, 72px)/.92 "Noto Serif Hebrew Variable", Georgia, serif; letter-spacing: -.055em; }
+.blog-hero > p:last-child { max-width: 620px; margin: 15px 0 0; color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.6; }
+.blog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; padding: 34px 5vw 58px; }
+.blog-card a { display: block; height: 100%; }
+.blog-card { border-bottom: 1px solid rgba(16,35,28,.16); }
+.blog-card a { display: grid; grid-template-columns: minmax(180px, 42%) 1fr; gap: 20px; }
+.blog-card-image { aspect-ratio: 4 / 3; overflow: hidden; background: #173027; }
+.blog-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+.blog-card:hover img { transform: scale(1.035); }
+.blog-card-copy { display: flex; flex-direction: column; padding: 8px 4px 16px 0; }
+.blog-card-copy > p { margin: 0 0 9px; color: #78847d; font: 650 9px/1.4 var(--sans); letter-spacing: .12em; }
+.blog-card-copy h2 { margin: 0 0 10px; font: 500 clamp(22px, 2vw, 30px)/1.08 "Noto Serif Hebrew Variable", Georgia, serif; letter-spacing: -.035em; }
+.blog-card-copy > span { display: block; color: #617068; font-size: 13px; line-height: 1.55; }
+.blog-card-copy > b { display: inline-block; align-self: start; margin-top: auto; padding: 14px 0 5px; border-bottom: 1px solid #a88b4e; font-size: 11px; }
+.blog-social-links { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 30px 5vw 38px; border-top: 1px solid rgba(16,35,28,.16); background: #dcd6c9; }
+.blog-social-links p { margin: 0; font: 500 clamp(24px, 2.6vw, 38px)/1.1 "Noto Serif Hebrew Variable", Georgia, serif; }
+.blog-social-links > div { display: flex; gap: 12px; direction: ltr; }
+.social-brand-button { display: inline-flex !important; align-items: center; justify-content: center; gap: 9px; min-height: 46px; border: 0 !important; border-radius: 8px; color: #fff !important; box-shadow: 0 8px 22px rgba(7,24,18,.13); font-family: var(--sans); font-weight: 700; letter-spacing: .01em; transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+.social-brand-button:hover { transform: translateY(-2px); filter: saturate(1.08) brightness(1.04); box-shadow: 0 12px 28px rgba(7,24,18,.2); }
+.social-brand-button.instagram { background: linear-gradient(135deg, #833ab4 0%, #c13584 37%, #e1306c 58%, #f77737 80%, #fcaf45 100%); }
+.social-brand-button.facebook { background: #1877f2; }
+.social-brand-button.whatsapp { background: #25d366; }
+.social-brand-button i { display: grid; place-items: center; width: 22px; height: 22px; border: 1.5px solid rgba(255,255,255,.94); border-radius: 6px; color: #fff; font-style: normal; font-size: 16px; font-weight: 800; line-height: 1; }
+.social-brand-button.facebook i { border: 0; border-radius: 50%; background: #fff; color: #1877f2; font-family: Arial, sans-serif; font-size: 18px; }
+.social-brand-button.whatsapp i { border-radius: 50%; font-size: 15px; transform: rotate(-20deg); }
+.blog-social-links a { min-width: 154px; padding: 13px 18px; text-align: center; font-size: 12px; }
+.blog-social-links a span { margin-left: 2px; color: rgba(255,255,255,.85); }
+.instagram-section { padding: 58px 5vw 78px; background: #dcd6c9; }
+.instagram-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 42px; }
+.instagram-heading h2 { margin: 0; font: 450 clamp(40px, 5vw, 72px)/1 "Noto Serif Hebrew Variable", Georgia, serif; letter-spacing: -.05em; }
+.instagram-heading small { display: block; margin-top: 14px; color: #69766e; font-size: 12px; }
+.instagram-heading > a { padding-bottom: 8px; border-bottom: 1px solid; font-size: 13px; }
+.instagram-reel-grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 280px); justify-content: start; gap: 12px; overflow-x: auto; padding-bottom: 12px; direction: ltr; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+.instagram-reel-grid iframe { width: 100%; height: 475px; border: 0; background: #fff; scroll-snap-align: start; }
+.instagram-fallback a { position: relative; overflow: hidden; aspect-ratio: 9 / 15; background: #092019; scroll-snap-align: start; }
+.instagram-fallback img { width: 100%; height: 100%; object-fit: cover; opacity: .72; transition: transform .7s ease, opacity .4s ease; }
+.instagram-fallback a:hover img { transform: scale(1.04); opacity: .88; }
+.instagram-fallback span { position: absolute; inset: auto 22px 24px; display: flex; flex-direction: column; gap: 6px; color: #fff; direction: rtl; }
+.instagram-fallback b { color: #d9c28e; font: 650 10px var(--sans); letter-spacing: .16em; }
+.article-header { display: grid; grid-template-columns: .88fr 1.12fr; min-height: 670px; background: #092019; color: #fff; }
+.article-header > div { display: flex; flex-direction: column; justify-content: center; padding: 120px 6vw 80px; }
+.article-header > div > a { align-self: start; margin-bottom: 52px; padding-bottom: 7px; border-bottom: 1px solid #b79a5c; font-size: 13px; }
+.article-header p { margin: 0 0 20px; color: #d9c28e; font: 650 10px var(--sans); letter-spacing: .13em; }
+.article-header h1 { margin: 0; font: 440 clamp(48px, 5.4vw, 80px)/.98 "Noto Serif Hebrew Variable", Georgia, serif; letter-spacing: -.055em; }
+.article-header span { margin-top: 28px; color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.75; }
+.article-header > img { width: 100%; height: 100%; min-height: 670px; object-fit: cover; }
+.article-body { width: min(760px, calc(100% - 40px)); margin-inline: auto; padding: 92px 0 120px; font-size: 18px; line-height: 1.9; }
+.article-body > p:first-child { font-size: 23px; color: #30443b; }
+.article-body h2 { margin: 58px 0 18px; font: 520 38px/1.15 "Noto Serif Hebrew Variable", Georgia, serif; letter-spacing: -.035em; }
+.article-body ul, .article-body ol { padding-right: 24px; }
+.article-body li { margin-bottom: 12px; padding-right: 5px; }
+.article-note { margin-top: 42px; padding: 24px 28px; border-right: 2px solid #b79a5c; background: rgba(255,255,255,.42); }
+.article-welfare { margin: 38px 0; padding: 28px 30px; border: 1px solid rgba(16,35,28,.22); background: #0b2a20; color: #fff; }
+.article-welfare strong { display: block; margin-bottom: 10px; color: #d9c28e; font-size: 14px; }
+.article-welfare p { margin: 0; color: rgba(255,255,255,.86); }
+.article-related { padding: 72px 5vw 110px; border-top: 1px solid rgba(16,35,28,.16); }
+.article-related > h2 { margin: 0 0 34px; font: 450 50px/1 "Noto Serif Hebrew Variable", Georgia, serif; }
+.article-related > div { display: grid; grid-template-columns: repeat(3, 1fr); }
+.article-related a { padding: 26px; border: 1px solid rgba(16,35,28,.16); border-left: 0; }
+.article-related a:last-child { border-left: 1px solid rgba(16,35,28,.16); }
+.article-related span { color: #78847d; font-size: 11px; }
+.article-related h3 { min-height: 72px; margin: 14px 0 24px; font: 520 24px/1.2 "Noto Serif Hebrew Variable", Georgia, serif; }
+.article-related b { color: #8b713c; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .blog-hero { min-height: 230px; padding: 82px 22px 30px; }
+  .blog-hero h1 { font-size: 48px; }
+  .blog-grid { grid-template-columns: 1fr 1fr; padding: 26px 18px 52px; gap: 18px 10px; }
+  .blog-card a { display: block; }
+  .blog-card-copy { padding: 14px 2px 18px; }
+  .instagram-section { padding: 58px 18px 72px; }
+  .instagram-heading { align-items: start; }
+  .instagram-heading h2 { font-size: 42px; }
+  .instagram-reel-grid { grid-auto-columns: minmax(210px, 64vw); gap: 8px; }
+  .instagram-reel-grid iframe { height: 430px; }
+  .article-header { grid-template-columns: 1fr; }
+  .article-header > div { padding: 100px 22px 52px; }
+  .article-header > div > a { margin-bottom: 34px; }
+  .article-header h1 { font-size: 48px; }
+  .article-header > img { min-height: 0; aspect-ratio: 16 / 10; }
+  .article-body { padding-block: 58px 78px; font-size: 16px; }
+  .article-body > p:first-child { font-size: 19px; }
+  .article-body h2 { margin-top: 44px; font-size: 31px; }
+  .article-related { padding: 54px 18px 72px; }
+  .article-related > div { grid-template-columns: 1fr; }
+  .article-related a, .article-related a:last-child { border-left: 1px solid rgba(16,35,28,.16); border-bottom: 0; }
+  .article-related a:last-child { border-bottom: 1px solid rgba(16,35,28,.16); }
+  .article-related h3 { min-height: 0; }
+}
+
+@media (max-width: 560px) {
+  .blog-hero { min-height: 195px; padding: 74px 18px 24px; }
+  .blog-hero .eyebrow { margin-bottom: 10px; }
+  .blog-hero h1 { font-size: 42px; }
+  .blog-hero > p:last-child { margin-top: 10px; font-size: 12px; }
+  .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 8px; padding: 18px 12px 40px; }
+  .blog-card-image { aspect-ratio: 1 / 1; }
+  .blog-card-copy { padding: 10px 1px 13px; }
+  .blog-card-copy > p { margin-bottom: 6px; font-size: 7px; }
+  .blog-card-copy h2 { margin-bottom: 7px; font-size: 18px; line-height: 1.08; }
+  .blog-card-copy > span { display: -webkit-box; overflow: hidden; font-size: 10.5px; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .blog-card-copy > b { margin-top: 8px; padding-top: 5px; font-size: 9px; }
+  .blog-social-links { display: block; padding: 24px 18px 30px; }
+  .blog-social-links > div { margin-top: 18px; }
+  .blog-social-links a { flex: 1; min-width: 0; }
+  .instagram-heading { display: block; }
+  .instagram-heading > a { display: inline-block; margin-top: 22px; }
+}
+
 @keyframes mobile-menu-reveal {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }

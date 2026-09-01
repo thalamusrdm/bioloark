@@ -20,3 +20,15 @@ export type Collection = { id: string; title: string; handle: string; descriptio
 export type CartLine = { id: string; quantity: number; merchandise: { id: string; title: string; product: { title: string; handle: string }; image?: ProductImage; price: Money } };
 export type Cart = { id?: string; totalQuantity: number; lines: CartLine[]; subtotal: Money; checkoutUrl?: string };
 export type ShopPolicy = { handle: string; title: string; body: string; url: string };
+export type BlogArticle = {
+  id: string;
+  title: string;
+  handle: string;
+  excerpt: string;
+  contentHtml: string;
+  publishedAt: string;
+  image?: ProductImage;
+  author: string;
+  tags: string[];
+  source: 'preview' | 'shopify';
+};
