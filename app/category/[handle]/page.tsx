@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { CategoryFilter } from '../../../components/category-filter';
 import { CollectionBrowser } from '../../../components/collection-browser';
 import { getCollection, previewCollections } from '../../../lib/commerce';
 
@@ -26,11 +27,15 @@ const categoryFilters: Record<string, { title: string; href: string }[]> = {
   ],
 };
 
+for (const handle of ['מצע-אדמה-ופחם', 'סלעים-וגזעים', 'טרריומים-כלי-זכוכית-ותאורה-1']) categoryFilters[handle] = categoryFilters['כלים-להכנה'];
+for (const handle of ['מטפסים', 'שרכים', 'מוס', 'ביגוניות-וסחלבים']) categoryFilters[handle] = categoryFilters['rare-plants'];
+for (const handle of ['טרריום-נוף', 'טרריום-טורפים']) categoryFilters[handle] = categoryFilters['טרריומים-מעוצבים'];
+
 export async function generateStaticParams() { return previewCollections().map((collection) => ({ handle: collection.handle })); }
 export async function generateMetadata({ params }: { params: Promise<{ handle: string }> }): Promise<Metadata> { const { handle } = await params; const { collection } = await getCollection(handle); if (!collection) return {}; return { title: `${collection.title} | Bioloark`, description: collection.description || `קולקציית ${collection.title} של Bioloark`, alternates: { canonical: `/category/${collection.handle}` } }; }
 
 export default async function CategoryPage({ params }: { params: Promise<{ handle: string }> }) {
   const { handle } = await params; const { collection, products } = await getCollection(handle); if (!collection) notFound();
   const filters = categoryFilters[decodeURIComponent(handle)] || [];
-  return <main className="internal-page"><section className="collection-hero"><p className="eyebrow">BIOLOARK COLLECTION</p><h1>{collection.title}</h1><p>{collection.description || 'פריטים שנבחרו בקפידה ליצירת עולמות בוטניים חיים.'}</p></section><section className="collection-body">{filters.length > 0 && <nav className={`collection-category-filter category-count-${filters.length}`} aria-label="סינון מוצרים לפי קטגוריה">{filters.map((filter) => <a href={filter.href} key={filter.href}>{filter.title}</a>)}</nav>}<div className="breadcrumbs"><a href="/">בית</a><span>/</span><span>{collection.title}</span></div><CollectionBrowser products={products} /></section></main>;
+  return <main className="internal-page"><section className="collection-hero"><p className="eyebrow">BIOLOARK COLLECTION</p><h1>{collection.title}</h1><p>{collection.description || 'פריטים שנבחרו בקפידה ליצירת עולמות בוטניים חיים.'}</p></section><section className="collection-body">{filters.length > 0 && <CategoryFilter filters={filters} currentHandle={decodeURIComponent(handle)} />}<div className="breadcrumbs"><a href="/">בית</a><span>/</span><span>{collection.title}</span></div><CollectionBrowser products={products} /></section></main>;
 }
