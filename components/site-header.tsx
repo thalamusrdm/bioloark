@@ -15,6 +15,7 @@ const shopSections = [
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
   const pathname = usePathname();
   const currentPath = decodeURI(pathname);
   const isCurrent = (href: string) => currentPath === href;
@@ -23,9 +24,15 @@ export function SiteHeader() {
     const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); setSearchOpen(false); } };
     window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close);
   }, []);
+  useEffect(() => {
+    const updateHeader = () => setCompact(window.scrollY > 24);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    return () => window.removeEventListener('scroll', updateHeader);
+  }, []);
   return (
     <>
-      <header className="site-header">
+      <header className={`site-header${compact ? ' is-compact' : ''}`}>
         <a className="brand" href="/" aria-label="Bioloark — דף הבית"><img src="/images/logo-header.png" alt="Bioloark" /></a>
         <nav className="desktop-nav" aria-label="ניווט ראשי">
           {shopSections.map((section) => section.items.length ? <div className="nav-menu" key={section.title}><a className="nav-parent" href={section.href}>{section.title}<span>⌄</span></a><div className="nav-dropdown"><a href={section.href}>{section.title}</a>{section.items.map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></div> : <a key={section.title} href={section.href}>{section.title}</a>)}<a href="/#about">קצת עלינו</a>
