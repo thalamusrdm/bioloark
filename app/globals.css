@@ -2227,10 +2227,11 @@ p { text-wrap: pretty; }
     width: 60%;
     background-color: #07110d;
     background-image: url('/images/hero-bioloark-mobile-v1.webp');
-    background-position: left bottom;
-    background-size: auto 110%;
+    background-position: var(--hero-image-position, 0%) bottom;
+    background-size: auto 200%;
     background-repeat: no-repeat;
     transform: none !important;
+    will-change: background-position;
   }
 
   .home-boutique .hero-veil {

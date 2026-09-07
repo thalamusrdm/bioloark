@@ -42,7 +42,12 @@ export function ScrollMotion() {
         const progress = (viewportHeight * 0.5 - (bounds.top + bounds.height * 0.5)) / viewportHeight;
         const visibleProgress = Math.max(0, Math.min(1, (viewportHeight - bounds.top) / (viewportHeight + bounds.height)));
 
-        if (element.dataset.scrollAxis === 'x') {
+        if (element.dataset.scrollAxis === 'hero-x') {
+          const scrollDistance = Math.max(bounds.height * 0.72, viewportHeight * 0.72);
+          const horizontalProgress = Math.max(0, Math.min(1, -bounds.top / scrollDistance));
+          element.style.setProperty('--hero-image-position', `${(horizontalProgress * 100).toFixed(2)}%`);
+          element.style.setProperty('--scroll-shift', '0px');
+        } else if (element.dataset.scrollAxis === 'x') {
           const trackBounds = element.parentElement?.getBoundingClientRect() ?? bounds;
           const startLine = viewportHeight * 0.45;
           const endLine = -trackBounds.height * 0.45;
