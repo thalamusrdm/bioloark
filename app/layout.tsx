@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.bioloark.co.il'),
   title: 'Bioloark | אמנות בוטנית וטרריומים מעוצבים',
   description: 'טרריומים מעוצבים בסגנון יפני קפדני, עם מוס חי ומגוון צמחים. כל טרריום מורכב בעבודת יד כמעשה אמנות חי.',
+  verification: { google: '6dku1PJCMAc1ypHS_ClWvS8NUkdPr_5kj7_5-ejrX20' },
   openGraph: { title: 'Bioloark | אמנות בוטנית וטרריומים מעוצבים', description: 'עולמות קטנים של טבע, מורכבים ביד ומעוצבים לחיים.', images: ['/images/og.jpg'], locale: 'he_IL', type: 'website' },
   twitter: { card: 'summary_large_image', title: 'Bioloark | אמנות בוטנית וטרריומים מעוצבים', description: 'עולמות קטנים של טבע, מורכבים ביד ומעוצבים לחיים.', images: ['/images/og.jpg'] },
 };
