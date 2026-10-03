@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { Cart, CartLine } from '../lib/types';
 
 type CartMerchandise = CartLine['merchandise'];
@@ -19,6 +19,7 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
+const PREVIEW_CART_STORAGE_KEY = 'bioloark-preview-cart';
 
 export function CartProvider({ children, shopifyEnabled }: { children: React.ReactNode; shopifyEnabled: boolean }) {
   const [cart, setCart] = useState<Cart>();
@@ -26,6 +27,7 @@ export function CartProvider({ children, shopifyEnabled }: { children: React.Rea
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [addedNoticeOpen, setAddedNoticeOpen] = useState(false);
+  const [previewCartLoaded, setPreviewCartLoaded] = useState(false);
 
   const request = useCallback(async (body?: object) => {
     setLoading(true); setError(undefined);
@@ -40,6 +42,49 @@ export function CartProvider({ children, shopifyEnabled }: { children: React.Rea
       throw caught;
     } finally { setLoading(false); }
   }, []);
+
+  useEffect(() => {
+    if (!shopifyEnabled) return;
+
+    const syncCart = () => { void request().catch(() => undefined); };
+    const syncVisibleCart = () => { if (document.visibilityState === 'visible') syncCart(); };
+
+    syncCart();
+    window.addEventListener('focus', syncCart);
+    document.addEventListener('visibilitychange', syncVisibleCart);
+    return () => {
+      window.removeEventListener('focus', syncCart);
+      document.removeEventListener('visibilitychange', syncVisibleCart);
+    };
+  }, [request, shopifyEnabled]);
+
+  useEffect(() => {
+    if (shopifyEnabled) return;
+
+    try {
+      const savedCart = window.localStorage.getItem(PREVIEW_CART_STORAGE_KEY);
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart) as Cart;
+        if (Array.isArray(parsedCart.lines) && typeof parsedCart.totalQuantity === 'number') {
+          setCart(parsedCart);
+        }
+      }
+    } catch {
+      window.localStorage.removeItem(PREVIEW_CART_STORAGE_KEY);
+    } finally {
+      setPreviewCartLoaded(true);
+    }
+  }, [shopifyEnabled]);
+
+  useEffect(() => {
+    if (shopifyEnabled || !previewCartLoaded) return;
+
+    if (cart && cart.lines.length > 0) {
+      window.localStorage.setItem(PREVIEW_CART_STORAGE_KEY, JSON.stringify(cart));
+    } else {
+      window.localStorage.removeItem(PREVIEW_CART_STORAGE_KEY);
+    }
+  }, [cart, previewCartLoaded, shopifyEnabled]);
 
   const value = useMemo<CartContextValue>(() => ({
     cart, isOpen, loading, error, shopifyEnabled,

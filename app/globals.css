@@ -21,7 +21,7 @@ button { color: inherit; font: inherit; }
 .cart-button { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; }
 .cart-icon { position: relative; display: grid; place-items: center; width: 32px; height: 32px; }
 .cart-icon svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.cart-count { position: absolute; inset: 10.5px 0 auto; display: grid; place-items: center; color: currentColor; font-size: 10px; font-weight: 700; line-height: 1; text-align: center; text-shadow: 0 1px 2px #071812; }
+.cart-count { position: absolute; top: 14.5px; left: 50%; display: grid; place-items: center; min-width: 15px; height: 11px; transform: translate(-50%, -50%); color: #fff; font-size: 10px; font-weight: 800; line-height: 1; text-align: center; text-shadow: 0 1px 2px #071812, 0 0 4px rgba(7,24,18,.75); font-variant-numeric: tabular-nums; }
 .hero { position: relative; min-height: clamp(660px, 56.28vw, 900px); overflow: hidden; display: grid; align-items: end; padding: 150px 7vw 10vh; color: white; background: #071812; }
 .hero-image { position: absolute; inset: 0; background: url('/images/hero-main.webp') center / cover no-repeat; }
 .hero-veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,21,16,.18), rgba(6,21,16,.72)), linear-gradient(0deg, rgba(5,18,13,.72), transparent 58%); }
@@ -214,7 +214,7 @@ button { color: inherit; font: inherit; }
 @media (max-width: 560px) { .cart-added-notice { inset: auto 12px 12px; width: min(276px, calc(100vw - 24px)); padding: 14px; } }
 
 .internal-page { padding-top: 92px; }
-.collection-hero { min-height: 430px; display: flex; flex-direction: column; justify-content: end; padding: 70px 7vw; background: linear-gradient(130deg, #0d261d, #2e4a3b); color: white; }
+.collection-hero { min-height: clamp(280px, 30vw, 340px); display: flex; flex-direction: column; justify-content: end; padding: clamp(38px, 5vw, 58px) 7vw; background: linear-gradient(130deg, #0d261d, #2e4a3b); color: white; }
 .collection-hero h1, .projects-hero h1, .search-head h1, .policy-page h1, .not-found h1 { margin: 0; font: 400 clamp(60px, 8vw, 120px)/.95 Georgia, "Noto Serif Hebrew", serif; letter-spacing: -.045em; }
 .collection-hero > p:last-child { max-width: 580px; margin: 28px 0 0; color: rgba(255,255,255,.68); font-size: 17px; line-height: 1.8; }
 .collection-body { padding: 28px 5vw 130px; }
@@ -491,6 +491,16 @@ p { text-wrap: pretty; }
   .site-header.is-compact .desktop-nav > a,
   .site-header.is-compact .desktop-nav .nav-parent { padding-block: 8px; }
   .site-header.is-compact .header-actions { gap: 13px; transform: scale(.94); }
+  .site-header.is-home.is-compact {
+    min-height: 94px;
+    background: rgba(7, 34, 25, .78);
+    box-shadow: none;
+  }
+  .site-header.is-home.is-compact .brand { width: 172px; height: 53px; }
+  .site-header.is-home.is-compact .desktop-nav { gap: clamp(22px, 2.45vw, 39px); font-size: 15px; }
+  .site-header.is-home.is-compact .desktop-nav > a,
+  .site-header.is-home.is-compact .desktop-nav .nav-parent { padding-block: 14px; }
+  .site-header.is-home.is-compact .header-actions { gap: 16px; transform: none; }
   .nav-dropdown {
     min-width: 232px;
     margin-top: 1px;

@@ -32,7 +32,7 @@ export function SiteHeader() {
   }, []);
   return (
     <>
-      <header className={`site-header${compact ? ' is-compact' : ''}`}>
+      <header className={`site-header${pathname === '/' ? ' is-home' : ''}${compact ? ' is-compact' : ''}`}>
         <a className="brand" href="/" aria-label="Bioloark — דף הבית"><img src="/images/logo-header.png" alt="Bioloark" /></a>
         <nav className="desktop-nav" aria-label="ניווט ראשי">
           {shopSections.map((section) => section.items.length ? <div className="nav-menu" key={section.title}><a className="nav-parent" href={section.href}>{section.title}<span>⌄</span></a><div className="nav-dropdown"><a href={section.href}>{section.title}</a>{section.items.map((item) => <a href={item.href} key={item.href}>{item.title}</a>)}</div></div> : <a key={section.title} href={section.href}>{section.title}</a>)}<a href="/#about">קצת עלינו</a>
