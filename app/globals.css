@@ -810,7 +810,7 @@ p { text-wrap: pretty; }
     color: white;
   }
   .cart-button .cart-icon { width: 28px; height: 28px; }
-  .cart-count { inset-block-start: 9px; font-size: 9px; }
+  .cart-count { top: 50%; inset-block-start: 50%; font-size: 9px; }
   .menu-button {
     width: 36px;
     height: 36px;

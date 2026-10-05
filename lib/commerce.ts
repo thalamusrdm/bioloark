@@ -103,8 +103,30 @@ export async function getCollections(): Promise<Collection[]> {
 
 export async function getCollection(handle: string): Promise<{ collection?: Collection; products: Product[] }> {
   const decoded = decodeURIComponent(handle);
+
+  if (shopifyIsConfigured()) {
+    try {
+      const data = await shopifyFetch<{ collection: any }>(`query Collection($handle: String!) { collection(handle: $handle) { id title handle description products(first: 100) { nodes { ${productFields} } } } }`, { handle: decoded });
+      if (data.collection) {
+        return {
+          collection: {
+            id: data.collection.id,
+            title: data.collection.title,
+            handle: data.collection.handle,
+            description: data.collection.description || '',
+            productHandles: data.collection.products.nodes.map((product: any) => product.handle),
+          },
+          products: data.collection.products.nodes.map(mapProduct),
+        };
+      }
+    } catch {
+      // Fall through to the catalog-backed lookup so category routes remain available.
+    }
+  }
+
   const [collections, products] = await Promise.all([getCollections(), getProducts()]);
-  const collection = collections.find((item) => item.handle === decoded);
+  const collection = collections.find((item) => item.handle === decoded)
+    || previewCatalog.collections.find((item) => item.handle === decoded);
   return { collection, products: collection ? products.filter((product) => collection.productHandles.includes(product.handle) || product.collections.includes(decoded)) : [] };
 }
 
