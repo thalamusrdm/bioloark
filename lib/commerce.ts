@@ -80,6 +80,35 @@ export async function getProducts(): Promise<Product[]> {
   }
 }
 
+// Catalog exports must be complete and fail closed instead of falling back to preview prices.
+export async function getMetaCatalogProducts(): Promise<Product[]> {
+  if (!shopifyIsConfigured()) throw new Error('Shopify is not configured');
+  const products: Product[] = [];
+  let after: string | null = null;
+  do {
+    const data: { products: { nodes: any[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } } = await shopifyFetch(`query MetaCatalog($after: String) {
+      products(first: 100, after: $after, sortKey: ID) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          id title handle description availableForSale
+          images(first: 8) { nodes { url altText width height } }
+          priceRange { minVariantPrice { amount currencyCode } }
+          variants(first: 250) {
+            pageInfo { hasNextPage }
+            nodes { id title availableForSale price { amount currencyCode } selectedOptions { name value } }
+          }
+        }
+      }
+    }`, { after });
+    if (data.products.nodes.some((product) => product.variants.pageInfo.hasNextPage)) throw new Error('Product exceeds export variant limit');
+    products.push(...data.products.nodes.map(mapProduct));
+    const pageInfo = data.products.pageInfo;
+    if (pageInfo.hasNextPage && (!pageInfo.endCursor || pageInfo.endCursor === after)) throw new Error('Invalid pagination cursor');
+    after = pageInfo.hasNextPage ? pageInfo.endCursor : null;
+  } while (after);
+  return products;
+}
+
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const decoded = decodeURIComponent(handle);
   if (!shopifyIsConfigured()) return previewCatalog.products.find((product) => product.handle === decoded);
