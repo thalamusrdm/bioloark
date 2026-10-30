@@ -5,6 +5,7 @@ import { SiteHeader } from '../components/site-header';
 import { CartDrawer } from '../components/cart-drawer';
 import { SiteFooter } from '../components/site-footer';
 import { AccessibilityWidget } from '../components/accessibility-widget';
+import { GoogleAdsMeasurement } from '../components/google-ads-measurement';
 import { shopifyIsConfigured } from '../lib/commerce';
 
 export const metadata: Metadata = {
@@ -17,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="he" dir="rtl"><body><a className="skip-link" href="#main-content">דילוג לתוכן הראשי</a><CartProvider shopifyEnabled={shopifyIsConfigured()}><SiteHeader /><div id="main-content" tabIndex={-1}>{children}</div><SiteFooter /><CartDrawer /><AccessibilityWidget /></CartProvider></body></html>;
+  return <html lang="he" dir="rtl"><body><a className="skip-link" href="#main-content">דילוג לתוכן הראשי</a><CartProvider shopifyEnabled={shopifyIsConfigured()}><SiteHeader /><div id="main-content" tabIndex={-1}>{children}</div><SiteFooter /><CartDrawer /><AccessibilityWidget /><GoogleAdsMeasurement /></CartProvider></body></html>;
 }

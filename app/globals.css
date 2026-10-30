@@ -2459,3 +2459,12 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
   .accessibility-panel { inset-block-end: 66px; width: min(315px, calc(100vw - 24px)); padding: 17px; }
   .policy-page ul { font-size: 15px; line-height: 1.8; }
 }
+
+.ad-consent-panel { position: fixed; z-index: 150; inset: auto 20px 20px auto; width: min(410px, calc(100vw - 40px)); padding: 18px; background: #fff; color: #173b32; border: 1px solid #cbd7cd; border-radius: 12px; box-shadow: 0 6px 26px #0002; font-size: 15px; }
+.ad-consent-panel strong { font-size: 17px; }
+.ad-consent-panel p { margin: 8px 0 14px; line-height: 1.6; }
+.ad-consent-panel a { text-decoration: underline; }
+.ad-consent-panel > div { display: flex; gap: 8px; flex-wrap: wrap; }
+.ad-consent-panel button { flex: 1; padding: 10px; border: 1px solid #173b32; border-radius: 6px; background: #fff; color: #173b32; cursor: pointer; font: inherit; }
+.ad-consent-panel button:last-child { background: #173b32; color: #fff; }
+.ad-consent-settings { position: fixed; z-index: 40; inset: auto 12px 8px auto; padding: 5px 9px; border: 1px solid #cbd7cd; border-radius: 6px; background: #fff; color: #173b32; font: inherit; font-size: 12px; cursor: pointer; }
