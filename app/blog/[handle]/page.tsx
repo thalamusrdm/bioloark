@@ -8,7 +8,7 @@ const terrariumTopics = new Set(['terrarium-substrate-layers', 'terrarium-lighti
 
 export async function generateMetadata({ params }: { params: Promise<{ handle: string }> }): Promise<Metadata> {
   const article = await getBlogArticle((await params).handle);
-  return article ? { title: article.seoTitle ?? `${article.title} | Bioloark`, description: article.excerpt, ...(article.handle === terrariumGuide.handle && { alternates: { canonical: `/blog/${article.handle}` } }), openGraph: { title: article.title, description: article.excerpt, images: article.image ? [article.image.url] : [] } } : {};
+  return article ? { title: article.seoTitle ?? `${article.title} | Bioloark`, description: article.excerpt, ...((article.handle === terrariumGuide.handle || article.handle === 'terrarium-substrate-layers') && { alternates: { canonical: `/blog/${article.handle}` } }), openGraph: { title: article.title, description: article.excerpt, images: article.image ? [article.image.url] : [] } } : {};
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ handle: string }> }) {
