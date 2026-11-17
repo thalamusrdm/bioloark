@@ -7,6 +7,26 @@
   overflow-x: auto;
 }
 
+.body :global(.article-photo) {
+  margin: clamp(1.75rem, 5vw, 3rem) 0;
+  border-radius: 0.9rem;
+  overflow: hidden;
+  background: #edf1eb;
+}
+
+.body :global(.article-photo) img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.body :global(.article-photo) figcaption {
+  padding: 0.8rem 1.1rem;
+  color: #30443b;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .body table {
   width: 100%;
   border-collapse: collapse;

@@ -24,6 +24,10 @@ export const terrariumGuide: BlogArticle = {
 </tbody>
 </table></div>
 <p>לדוגמה, אם יש לכם מדף מואר באור עקיף ואתם רוצים לשתול פיטוניה, כלי עם מכסה הוא נקודת פתיחה טובה. אם אתם מעדיפים צמחים שאוהבים תנאים יבשים, חפשו כלי פתוח ורחב ובדקו מראש את דרישות האור והניקוז שלהם. <a href="https://accessibility.extension.msstate.edu/publications/how-design-closed-system-terrarium">מדריך לבחירת צמחים וכלי, Mississippi State University Extension</a></p>
+<figure class="article-photo">
+  <img src="/images/terrarium-world.webp" alt="טרריומים בצנצנות זכוכית עם מכסי שעם וזכוכית" width="1376" height="768" loading="lazy" decoding="async" />
+  <figcaption>כלים בגדלים שונים משאירים מרווח שונה לצמיחה ולגישה בזמן גיזום.</figcaption>
+</figure>
 <h2>מה צריך כדי לבנות טרריום בבית?</h2>
 <p>להקמה ראשונה מספיקים כלי שקוף ונקי, מצע מתאים וצמח קטן אחד או כמה צמחים עם דרישות דומות. פתח רחב מקל על השתילה, על גיזום ועל הוצאת עלים שנשרו. לפני שקונים צמח, בדקו את גודלו בבגרות והשאירו מרווח בין העלים לדפנות ולמכסה.</p>
 <ol>
@@ -32,9 +36,17 @@ export const terrariumGuide: BlogArticle = {
 <li><strong>סדרו את הצמחים לפני השתילה.</strong> בכלי שנצפה מצד אחד, אפשר למקם צמח גבוה יותר מאחור ולהשאיר את החלק הקדמי פנוי לצמח נמוך. בדקו שהמכסה נסגר והעלים נשארים במרחק מהזכוכית.</li>
 <li><strong>שתלו והרטיבו בהדרגה.</strong> אם המצע כבר לח, בדקו אם בכלל צריך להוסיף מים. הוסיפו מעט בכל פעם עד שאזור השורשים לח. <a href="https://extension.okstate.edu/fact-sheets/print-publications/hla/terrariums-hla-6438.pdf">מדריך הקמה וטיפול, Oklahoma State University Extension</a></li>
 </ol>
+<figure class="article-photo">
+  <img src="/images/blog-terrarium-lighting.webp" alt="מצע שתילה, חלוקי נחל וכלי זכוכית עם שכבות מצע" width="1376" height="768" loading="lazy" decoding="async" />
+  <figcaption>בכלי שקוף אפשר לראות את ההפרדה בין שכבת השתילה לשכבה התחתונה.</figcaption>
+</figure>
 <h2>איך מטפלים בטרריום אחרי השתילה?</h2>
 <h3>תאורה</h3>
 <p>בדקו את המקום בשעה שבה השמש חזקה. מדף שנראה מוצל בבוקר עשוי לקבל שמש ישירה אחר הצהריים. אם המקום מקבל מעט אור טבעי, בדקו אם אפשר להציב בו תאורת גידול שמתאימה לצמחים ולגודל הכלי. <a href="/blog/terrarium-lighting-guide">מדריך התאורה לטרריום</a></p>
+<figure class="article-photo">
+  <img src="/images/blog-terrarium-substrate.webp" alt="טרריום צמחים עם גוף תאורת גידול מעל כלי הזכוכית" width="2200" height="1650" loading="lazy" decoding="async" />
+  <figcaption>גוף תאורה מעל הכלי מאפשר לכוון את התאורה לפי מיקום הטרריום.</figcaption>
+</figure>
 <h3>השקיה ועיבוי</h3>
 <p>לפני השקיה הסתכלו על המצע, העלים והזכוכית. עיבוי קל שמופיע ונעלם יכול להיות חלק ממחזור המים בכלי סגור. אם הזכוכית נשארת מכוסה טיפות במשך רוב היום והמצע רטוב, אפשר לפתוח את המכסה לזמן קצר כדי לאפשר לעודפי לחות לצאת. אם המצע מתחיל להתייבש, הוסיפו מעט מים באזור השורשים ובדקו שוב. <a href="https://extension.okstate.edu/fact-sheets/print-publications/hla/terrariums-hla-6438.pdf">הנחיות למעקב אחר לחות, Oklahoma State University Extension</a></p>
 <h3>גיזום וניקיון</h3>
