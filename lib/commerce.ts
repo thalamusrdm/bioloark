@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import catalogJson from '../data/catalog.json';
-import { previewArticles } from '../data/articles';
+import { previewArticles, terrariumGuide } from '../data/articles';
 import type { BlogArticle, Cart, Collection, Money, Product, ProductImage, ProductVariant, ShopPolicy } from './types';
 
 type Catalog = { products: Product[]; collections: Collection[] };
@@ -199,12 +199,15 @@ export async function getBlogArticles(): Promise<BlogArticle[]> {
   if (!shopifyIsConfigured()) return previewArticles;
   try {
     const data = await shopifyFetch<{ articles: { nodes: any[] } }>(`query Articles { articles(first: 40, sortKey: PUBLISHED_AT, reverse: true) { nodes { ${articleFields} } } }`);
-    return data.articles.nodes.length ? data.articles.nodes.map(mapArticle) : previewArticles;
+    if (!data.articles.nodes.length) return previewArticles;
+    const articles = data.articles.nodes.map(mapArticle);
+    return [terrariumGuide, ...articles.filter((article) => article.handle !== terrariumGuide.handle)];
   } catch { return previewArticles; }
 }
 
 export async function getBlogArticle(handle: string): Promise<BlogArticle | undefined> {
   const decoded = decodeURIComponent(handle);
+  if (decoded === terrariumGuide.handle) return terrariumGuide;
   if (!shopifyIsConfigured()) return previewArticles.find((article) => article.handle === decoded);
   try {
     const data = await shopifyFetch<{ blogs: { nodes: { articleByHandle?: any }[] } }>(`query Article($handle: String!) { blogs(first: 20) { nodes { articleByHandle(handle: $handle) { ${articleFields} } } } }`, { handle: decoded });

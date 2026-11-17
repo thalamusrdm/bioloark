@@ -23,6 +23,7 @@ export type ShopPolicy = { handle: string; title: string; body: string; url: str
 export type BlogArticle = {
   id: string;
   title: string;
+  seoTitle?: string;
   handle: string;
   excerpt: string;
   contentHtml: string;

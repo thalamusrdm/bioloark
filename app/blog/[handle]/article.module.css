@@ -1,0 +1,21 @@
+.body a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.body :global(.article-table-scroll) {
+  overflow-x: auto;
+}
+
+.body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.body th,
+.body td {
+  padding: 0.65rem;
+  border-bottom: 1px solid currentColor;
+  text-align: start;
+  vertical-align: top;
+}
