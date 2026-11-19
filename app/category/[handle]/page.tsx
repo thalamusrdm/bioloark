@@ -34,10 +34,11 @@ const categoryFilters: Record<string, { title: string; href: string }[]> = {
     { title: 'כלי זכוכית ותאורה', href: '/category/טרריומים-כלי-זכוכית-ותאורה-1' },
   ],
   'rare-plants': [
-    { title: 'מטפסים ומתפשטים', href: '/category/מטפסים' },
-    { title: 'שרכים', href: '/category/שרכים' },
     { title: 'מוס', href: '/category/מוס' },
+    { title: 'שרכים', href: '/category/שרכים' },
     { title: 'ביגוניות וסחלבים', href: '/category/ביגוניות-וסחלבים' },
+    { title: 'מטפסים ומתפשטים', href: '/category/מטפסים' },
+    { title: 'צמחים טורפים', href: '/category/צמחים-טורפים' },
   ],
   'טרריומים-מעוצבים': [
     { title: 'טרריום נוף', href: '/category/טרריום-נוף' },
@@ -46,7 +47,7 @@ const categoryFilters: Record<string, { title: string; href: string }[]> = {
 };
 
 for (const handle of ['מצע-אדמה-ופחם', 'סלעים-וגזעים', 'טרריומים-כלי-זכוכית-ותאורה-1']) categoryFilters[handle] = categoryFilters['כלים-להכנה'];
-for (const handle of ['מטפסים', 'שרכים', 'מוס', 'ביגוניות-וסחלבים']) categoryFilters[handle] = categoryFilters['rare-plants'];
+for (const handle of ['מטפסים', 'שרכים', 'מוס', 'ביגוניות-וסחלבים', 'צמחים-טורפים']) categoryFilters[handle] = categoryFilters['rare-plants'];
 for (const handle of ['טרריום-נוף', 'טרריום-טורפים']) categoryFilters[handle] = categoryFilters['טרריומים-מעוצבים'];
 
 export async function generateStaticParams() { return previewCollections().map((collection) => ({ handle: collection.handle })); }

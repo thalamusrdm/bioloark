@@ -7,7 +7,7 @@ import { useCart } from './cart-provider';
 const shopSections = [
   { title: 'יצירות מוכנות', mobileAllTitle: 'כל היצירות המוכנות', href: '/category/טרריומים-מעוצבים', items: [{ title: 'טרריום נוף', href: '/category/טרריום-נוף' }, { title: 'טרריום טורפים', href: '/category/טרריום-טורפים' }] },
   { title: 'הכל לטרריום', mobileAllTitle: 'כל המוצרים לטרריום', href: '/category/כלים-להכנה', items: [{ title: 'מצע אדמה ופחם', href: '/category/מצע-אדמה-ופחם' }, { title: 'סלעים וגזעים', href: '/category/סלעים-וגזעים' }, { title: 'כלי זכוכית ותאורה', href: '/category/טרריומים-כלי-זכוכית-ותאורה-1' }] },
-  { title: 'צמחים', mobileAllTitle: 'כל הצמחים', href: '/category/rare-plants', items: [{ title: 'מטפסים ומתפשטים', href: '/category/מטפסים' }, { title: 'שרכים', href: '/category/שרכים' }, { title: 'מוס', href: '/category/מוס' }, { title: 'ביגוניות וסחלבים', href: '/category/ביגוניות-וסחלבים' }] },
+  { title: 'צמחים', mobileAllTitle: 'כל הצמחים', href: '/category/rare-plants', items: [{ title: 'מטפסים ומתפשטים', href: '/category/מטפסים' }, { title: 'שרכים', href: '/category/שרכים' }, { title: 'מוס', href: '/category/מוס' }, { title: 'ביגוניות וסחלבים', href: '/category/ביגוניות-וסחלבים' }, { title: 'צמחים טורפים', href: '/category/צמחים-טורפים' }] },
   { title: 'סדנאות', href: '/workshops', items: [] },
   { title: 'בלוג וטיפים', href: '/blog', items: [] },
 ];

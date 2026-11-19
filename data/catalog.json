@@ -3512,6 +3512,99 @@
         "טרריומים-כלי-זכוכית-ותאורה-1"
       ],
       "source": "preview"
+    },
+    {
+      "id": "gid://shopify/Product/10845787619622",
+      "title": "כדנית גאיה Nepenthes Gaia",
+      "handle": "כדנית-גאיה-nepenthes-gaia",
+      "seoTitle": "כדנית גאיה Nepenthes Gaia | Bioloark",
+      "description": "כדנית טרופית עם כדים תלויים צבעוניים, המתאימה לטרריומים גבוהים ולסביבה לחה ומוארת.",
+      "descriptionHtml": "<p>כדנית טרופית עם כדים תלויים צבעוניים. מתאימה לתאורה עקיפה חזקה, לחות גבוהה ומצע חומצי ללא דשן.</p>",
+      "price": { "amount": 80, "currencyCode": "ILS" },
+      "availableForSale": true,
+      "images": [
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0270.jpg?v=1793981454", "altText": "כדנית גאיה Nepenthes Gaia", "width": 1179, "height": 1495 }
+      ],
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/54343307624742", "title": "Default Title", "availableForSale": true, "price": { "amount": 80, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Title", "value": "Default Title" }] }
+      ],
+      "collections": ["all-products", "rare-plants", "צמחים-טורפים"],
+      "source": "preview"
+    },
+    {
+      "id": "gid://shopify/Product/10845733880102",
+      "title": "דיונאה Dionaea Muscipula",
+      "handle": "דיונאה-dionaea-muscipula",
+      "seoTitle": "דיונאה Dionaea Muscipula | Bioloark",
+      "description": "מלכודת ונוס בעלת מלכודות עלים פעילות, המתאימה לתאורה חזקה, מים מזוקקים ומצע חומצי ללא דשן.",
+      "descriptionHtml": "<p>מלכודת ונוס בעלת מלכודות עלים פעילות. זקוקה לתאורה חזקה, מים מזוקקים ומצע חומצי ללא דשן.</p>",
+      "price": { "amount": 70, "currencyCode": "ILS" },
+      "availableForSale": true,
+      "images": [
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0455.jpg?v=1793980452", "altText": "דיונאה Dionaea Muscipula", "width": 3024, "height": 4032 },
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0456.jpg?v=1793980453", "altText": "דיונאה Dionaea Muscipula", "width": 3024, "height": 4032 }
+      ],
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/54343211876646", "title": "Default Title", "availableForSale": true, "price": { "amount": 70, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Title", "value": "Default Title" }] }
+      ],
+      "collections": ["all-products", "rare-plants", "צמחים-טורפים"],
+      "source": "preview"
+    },
+    {
+      "id": "gid://shopify/Product/10845722771750",
+      "title": "שופרית Sarracenia Leucophylla",
+      "handle": "שופרית-sarracenia-leucophylla",
+      "seoTitle": "שופרית Sarracenia Leucophylla | Bioloark",
+      "description": "שופרית טורפת בעלת שופרות זקופים ודקורטיביים, לגידול בתנאי אור ולחות מתאימים.",
+      "descriptionHtml": "<p>שופרית טורפת בעלת שופרות זקופים ודקורטיביים, לגידול בתנאי אור ולחות מתאימים.</p>",
+      "price": { "amount": 80, "currencyCode": "ILS" },
+      "availableForSale": true,
+      "images": [
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0281.jpg?v=1793979272", "altText": "שופרית Sarracenia Leucophylla", "width": 3024, "height": 4032 }
+      ],
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/54343189954854", "title": "Default Title", "availableForSale": true, "price": { "amount": 80, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Title", "value": "Default Title" }] }
+      ],
+      "collections": ["all-products", "rare-plants", "צמחים-טורפים"],
+      "source": "preview"
+    },
+    {
+      "id": "gid://shopify/Product/10845714481446",
+      "title": "כדנית בלאדי מרי Nepenthes Bloody Mary",
+      "handle": "כדנית-בלאדי-מרי-nepenthes-bloody-mary",
+      "seoTitle": "כדנית בלאדי מרי Nepenthes Bloody Mary | Bioloark",
+      "description": "כדנית טרופית בעלת כדים אדומים, המתאימה לטרריומים גבוהים עם תאורה עקיפה חזקה ולחות גבוהה.",
+      "descriptionHtml": "<p>כדנית טרופית בעלת כדים אדומים. מתאימה לתאורה עקיפה חזקה, לחות גבוהה ומצע חומצי ללא דשן.</p>",
+      "price": { "amount": 80, "currencyCode": "ILS" },
+      "availableForSale": true,
+      "images": [
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0278.jpg?v=1793979085", "altText": "כדנית בלאדי מרי Nepenthes Bloody Mary", "width": 3024, "height": 4032 }
+      ],
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/54343170162982", "title": "Default Title", "availableForSale": true, "price": { "amount": 80, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Title", "value": "Default Title" }] }
+      ],
+      "collections": ["all-products", "rare-plants", "צמחים-טורפים"],
+      "source": "preview"
+    },
+    {
+      "id": "gid://shopify/Product/10845462659366",
+      "title": "ספגנום מוס יבש 100/150g Sphagnum Moss",
+      "handle": "100g-sphagnum-moss",
+      "seoTitle": "ספגנום מוס יבש 100/150g | Bioloark",
+      "description": "ספגנום מוס יבש ונקי, מתאים לטרריומים, צמחים טורפים, סחלבים ועמודי מוס.",
+      "descriptionHtml": "<p>ספגנום מוס יבש ונקי, בעל יכולת גבוהה לספוג מים ולשמור על לחות. מתאים לטרריומים, צמחים טורפים, סחלבים ועמודי מוס.</p>",
+      "price": { "amount": 75, "currencyCode": "ILS" },
+      "availableForSale": true,
+      "images": [
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/HEIF.jpg?v=1793972475", "altText": "ספגנום מוס יבש", "width": 2109, "height": 3174 },
+        { "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG_0435.jpg?v=1793972476", "altText": "ספגנום מוס יבש", "width": 3024, "height": 4032 }
+      ],
+      "variants": [
+        { "id": "gid://shopify/ProductVariant/54342638502182", "title": "100g", "availableForSale": true, "price": { "amount": 75, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Weight", "value": "100g" }] },
+        { "id": "gid://shopify/ProductVariant/54342638534950", "title": "150g", "availableForSale": true, "price": { "amount": 110, "currencyCode": "ILS" }, "selectedOptions": [{ "name": "Weight", "value": "150g" }] }
+      ],
+      "collections": ["all-products", "rare-plants", "צמחים-טורפים"],
+      "source": "preview"
     }
   ],
   "collections": [
@@ -3880,6 +3973,19 @@
         "לודיסיה-סחלב-תכשיט-ludisia-discolor",
         "סחלב-תכשיט-מקודס-פטולה-macodes-petola",
         "בגוניה-ליכנורה-x-דראקופלטה-begonia-lichenora-x-dracopelta"
+      ]
+    },
+    {
+      "id": "preview:צמחים-טורפים",
+      "title": "צמחים טורפים",
+      "handle": "צמחים-טורפים",
+      "description": "צמחים טורפים חיים לגידול בטרריום ובתנאים מותאמים.",
+      "productHandles": [
+        "כדנית-גאיה-nepenthes-gaia",
+        "דיונאה-dionaea-muscipula",
+        "שופרית-sarracenia-leucophylla",
+        "כדנית-בלאדי-מרי-nepenthes-bloody-mary",
+        "100g-sphagnum-moss"
       ]
     }
   ]
