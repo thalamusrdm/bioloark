@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 const announcements = [
   { text: 'מתנה בכל קנייה 🎁' },
   { text: 'משלוחים חינם במרכז בקנייה מעל ₪400' },
-  { text: 'משלוחים מוזלים' },
-  { text: '', link: '/delivery-check', action: 'בדוק זמינות למשלוח חינם' },
+  { text: 'משלוחים מוזלים לכל הארץ' },
+  { text: '', link: '/delivery-check', action: 'בדוק זכאות למשלוח חינם' },
 ];
 
 export function AnnouncementBar() {

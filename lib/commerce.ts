@@ -80,6 +80,74 @@ export async function getProducts(): Promise<Product[]> {
   }
 }
 
+const homepageKitHandle = 'טרריום-להכנה-עצמית-סט-מלא';
+const homepagePriorityHandles = [
+  homepageKitHandle,
+  '100g-sphagnum-moss',
+];
+const homepageExcludedHandles = new Set([
+  'שפגנום-מוס-ניו-זילנד-zoo-med-new-zealand-sphagnum-moss',
+]);
+
+function isAvailableProduct(product: Product) {
+  return product.availableForSale;
+}
+
+function buildHomepageCarousel(newest: Product[], bestSelling: Product[]) {
+  const availableNewest = newest.filter((product) => isAvailableProduct(product) && !homepageExcludedHandles.has(product.handle));
+  const availableBestSelling = bestSelling.filter((product) => isAvailableProduct(product) && !homepageExcludedHandles.has(product.handle));
+  const mixedProducts: Product[] = [];
+  const longestList = Math.max(availableNewest.length, availableBestSelling.length);
+
+  for (let index = 0; index < longestList; index += 1) {
+    if (availableNewest[index]) mixedProducts.push(availableNewest[index]);
+    if (availableBestSelling[index]) mixedProducts.push(availableBestSelling[index]);
+  }
+
+  const uniqueProducts = Array.from(new Map(mixedProducts.map((product) => [product.id, product])).values());
+  const priorityProducts = homepagePriorityHandles.flatMap((handle) => {
+    const product = uniqueProducts.find((item) => item.handle === handle);
+    return product ? [product] : [];
+  });
+  const priorityHandleSet = new Set(priorityProducts.map((product) => product.handle));
+  const remainingProducts = uniqueProducts.filter((product) => !priorityHandleSet.has(product.handle));
+
+  return [...priorityProducts, ...remainingProducts].slice(0, 32);
+}
+
+function getPreviewHomepageCarouselProducts() {
+  const priorityProducts = homepagePriorityHandles.flatMap((handle) => {
+    const product = previewCatalog.products.find((item) => item.handle === handle);
+    return product ? [product] : [];
+  });
+  const priorityHandleSet = new Set(priorityProducts.map((product) => product.handle));
+  const remainingProducts = previewCatalog.products.filter((product) => !priorityHandleSet.has(product.handle));
+
+  return buildHomepageCarousel([...priorityProducts, ...remainingProducts], []);
+}
+
+export async function getHomepageCarouselProducts(): Promise<Product[]> {
+  if (!shopifyIsConfigured()) return getPreviewHomepageCarouselProducts();
+
+  try {
+    const data = await shopifyFetch<{
+      newest: { nodes: any[] };
+      bestSelling: { nodes: any[] };
+    }>(`query HomepageCarousel($newestCount: Int!, $bestSellingCount: Int!) {
+      newest: products(first: $newestCount, sortKey: CREATED_AT, reverse: true, query: "available_for_sale:true") {
+        nodes { ${productFields} }
+      }
+      bestSelling: products(first: $bestSellingCount, sortKey: BEST_SELLING, query: "available_for_sale:true") {
+        nodes { ${productFields} }
+      }
+    }`, { newestCount: 24, bestSellingCount: 32 });
+
+    return buildHomepageCarousel(data.newest.nodes.map(mapProduct), data.bestSelling.nodes.map(mapProduct));
+  } catch {
+    return getPreviewHomepageCarouselProducts();
+  }
+}
+
 // Catalog exports must be complete and fail closed instead of falling back to preview prices.
 export async function getMetaCatalogProducts(): Promise<Product[]> {
   if (!shopifyIsConfigured()) throw new Error('Shopify is not configured');

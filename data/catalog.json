@@ -1,6 +1,68 @@
 {
   "products": [
     {
+      "id": "preview:טרריום-להכנה-עצמית-סט-מלא",
+      "title": "טרריום להכנה עצמית (סט מלא)",
+      "handle": "טרריום-להכנה-עצמית-סט-מלא",
+      "sourceUrl": "https://www.bioloark.co.il/product-page/טרריום-להכנה-עצמית-סט-מלא",
+      "seoTitle": "טרריום להכנה עצמית — סט מלא | Bioloark",
+      "description": "סט מלא להכנה עצמית של טרריום ביולוארק, כולל כלי זכוכית בצורת טיפה עם תאורה ואוורור, מצע שכבות, גזעים, סלעים, מוס, צמחים, פינצטה ושפריצר.",
+      "descriptionHtml": "<p>סט מלא להכנה עצמית של טרריום ביולוארק.</p><ul><li>כלי זכוכית בצורת טיפה עם תאורה מובנית ואוורור</li><li>מצע שכבות הכולל חצץ, פחם ואדמה</li><li>גזעים וסלעים לעיצוב</li><li>מוס ומגוון צמחים</li><li>פינצטה 27 ס״מ ובקבוק שפריצר</li><li>הוראות הרכבה וסרטון הדרכה</li></ul>",
+      "price": {
+        "amount": 580,
+        "currencyCode": "ILS"
+      },
+      "availableForSale": true,
+      "images": [
+        {
+          "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG-9837.jpg?v=1791480169",
+          "altText": "ערכת טרריום מלאה להכנה עצמית"
+        },
+        {
+          "url": "https://cdn.shopify.com/s/files/1/1034/0243/8950/files/IMG-7795.jpg?v=1793379445",
+          "altText": "טרריום ביולוארק בנוי מהערכה"
+        }
+      ],
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/53987900129574",
+          "title": "SD 175 (580₪)",
+          "availableForSale": true,
+          "price": {
+            "amount": 580,
+            "currencyCode": "ILS"
+          },
+          "selectedOptions": [
+            {
+              "name": "דגם",
+              "value": "SD 175"
+            }
+          ]
+        },
+        {
+          "id": "gid://shopify/ProductVariant/53987900096806",
+          "title": "SD 200 (690₪)",
+          "availableForSale": true,
+          "price": {
+            "amount": 690,
+            "currencyCode": "ILS"
+          },
+          "selectedOptions": [
+            {
+              "name": "דגם",
+              "value": "SD 200"
+            }
+          ]
+        }
+      ],
+      "collections": [
+        "all-products",
+        "כלים-להכנה",
+        "טרריומים-כלי-זכוכית-ותאורה-1"
+      ],
+      "source": "preview"
+    },
+    {
       "id": "preview:wio-wild-red-lava-stone-1kg",
       "title": "WIO Wild Red Lava Stone 1k",
       "handle": "wio-wild-red-lava-stone-1kg",

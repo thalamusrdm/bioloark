@@ -1,14 +1,8 @@
-import { getProducts } from '../lib/commerce';
+import { getHomepageCarouselProducts } from '../lib/commerce';
 import { ProductCard } from '../components/product-card';
 import { ProductCarousel } from '../components/product-carousel';
 import { ScrollMotion } from '../components/scroll-motion';
 import { ContactForm } from '../components/contact-form';
-
-const featuredHandles = [
-  'סחלב-תכשיט-מקודס-פטולה-macodes-petola',
-  'cushion-moss-terrarium',
-  'bioloark-bio-bottle-sd175',
-];
 
 const services = [
   { number: '01', title: 'תכנון קירות ירוקים ומפלי מים', description: 'פתרונות מתקדמים להקמת מערכות צמחייה ורטיקליות המשלבות זרימת מים ותאורה ממוחשבת. אנו מתמחים ביצירת חללים שמעניקים שקט נפשי ושלווה בלב הסביבה העירונית.', image: '/images/service-green-wall.webp' },
@@ -29,24 +23,18 @@ const pathways = [
 ];
 
 export default async function Home() {
-  const products = await getProducts();
-  const featured = featuredHandles.flatMap((handle) => { const product = products.find((item) => item.handle === handle); return product ? [product] : []; });
-  const additionalTerrariums = products.filter((product) => !featuredHandles.includes(product.handle) && product.collections.includes('טרריומים-מעוצבים')).slice(0, 8);
-  const excludedCarouselHandles = new Set(['מונטה-קרלו-micranthemum-monte-carlo', 'סלגינלה-אונקינטה-selaginella-uncinata', 'המיאנתוס-קליטריכואידס-hc-cuba-hemianthus-callitrichoides']);
-  const additionalPlants = products.filter((product) => product.collections.includes('rare-plants') && !excludedCarouselHandles.has(product.handle)).slice(0, 10);
-  const toolExamples = ['פינצט', 'מספריים'].flatMap((term) => { const product = products.find((item) => item.title.includes(term)); return product ? [product] : []; });
-  const accessoryHandles = ['מצע-טרריום-קלאסי-3-ליטר', 'מצע-כבול-נקי-5-ליטר-peat', 'ada-aqua-soil-amazonia', 'wio-wild-red-lava-stone-1kg', 'גזע-שורש-ספיידר-מחיר-לקילו', 'bioloark-dl-05-terrarium-magnetic-light', 'bioloark-bio-bottle-mh-series', 'bioloark-bio-bottle-pd170', 'bioloark-bio-bottle-qd172', 'קוקוס-גרוס-דחוס', 'קליפות-עץ-אורן-3-ליטר-bark', 'ada-aqua-gravel', 'שפגנום-מוס-ניו-זילנד-zoo-med-new-zealand-sphagnum-moss'];
-  const accessoryExamples = accessoryHandles.flatMap((handle) => { const product = products.find((item) => item.handle === handle); return product ? [product] : []; });
-  const carouselProducts = Array.from(new Map([...featured, ...additionalTerrariums, ...additionalPlants, ...toolExamples, ...accessoryExamples].map((product) => [product.id, product])).values()).reverse();
+  // The carousel opens at its right edge, so reverse the source order to keep
+  // the pinned kit visually first in the RTL storefront.
+  const carouselProducts = (await getHomepageCarouselProducts()).reverse();
   const organization = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Bioloark', url: 'https://www.bioloark.co.il', image: 'https://www.bioloark.co.il/images/og.jpg', email: 'info@bioloark.co.il', address: { '@type': 'PostalAddress', streetAddress: 'מאפו 13', addressLocality: 'תל אביב', addressCountry: 'IL' }, openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'], opens: '10:00', closes: '19:00' }, { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '14:00' }], sameAs: ['https://www.facebook.com/BioloarkIsrael', 'https://www.instagram.com/bioloark_israel'] };
   return <main className="home-boutique"><ScrollMotion /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
-    <section className="hero" id="top" data-spotlight><div className="hero-image" data-scroll-media data-scroll-axis="hero-x" aria-hidden="true" /><div className="hero-veil" aria-hidden="true" /><div className="hero-content" data-reveal><p className="eyebrow">BOTANICAL ART DESIGN FOR INTERIORS</p><h1><a className="hero-brand-line" href="/" dir="ltr" aria-label="Bioloark — דף הבית">Bioloark</a><span className="hero-tagline">עיצוב חי, מדויק<br />ומלא השראה</span></h1><p className="hero-copy">אנחנו משלבים בין עיצוב, איזון ותשומת לב לפרטים כדי ליצור מראה נקי, מרשים וייחודי</p><a className="primary-button hero-store-button" href="/category/all-products"><span className="hero-store-button-label">למוצרי החנות</span><span className="hero-store-button-arrow" aria-hidden="true">←</span></a></div></section>
+    <section className="hero kit-hero" id="top"><div className="hero-image" aria-hidden="true" /><div className="hero-veil" aria-hidden="true" /><div className="hero-content" data-reveal><p className="eyebrow">BIOLOARK · BUILD YOUR OWN WORLD</p><h1><span className="hero-brand-line" dir="ltr">ערכת טרריום מלאה</span><span className="hero-tagline">טרריום שלם.<br />אתם בונים.</span></h1><p className="hero-copy">מערכת ביולוארק עם תאורה ואוורור, מצעי שכבות, סלעים, גזע, מוס, ארבעה צמחים וכלי עבודה — כל מה שצריך לחוויית בנייה בבית.</p><p className="hero-kit-uses">פעילות מהנה לכל המשפחה · מתנה מושלמת לאוהבי צמחים</p><a className="primary-button hero-store-button" href="/product-page/%D7%98%D7%A8%D7%A8%D7%99%D7%95%D7%9D-%D7%9C%D7%94%D7%9B%D7%A0%D7%94-%D7%A2%D7%A6%D7%9E%D7%99%D7%AA-%D7%A1%D7%98-%D7%9E%D7%9C%D7%90"><span className="hero-store-button-label">לפרטים על הערכה</span><span className="hero-store-button-arrow" aria-hidden="true">←</span></a></div></section>
 
-    <section className="path-section" aria-labelledby="path-title"><div className="path-heading" data-reveal><p className="eyebrow dark">THREE WAYS INTO THE LIVING WORLD</p><h2 id="path-title">הדרך שלכם<br />להכניס טבע פנימה</h2><p>בחרו יצירה מוכנה, בנו עולם משלכם או תנו לנו לתכנן עבורכם פתרון מותאם אישית.</p></div><div className="path-grid">{pathways.map((path) => <a className="path-card" href={path.href} key={path.number} data-reveal><div className="path-card-media"><img src={path.image} alt={path.title} loading="lazy" data-scroll-media data-scroll-speed="6" /></div><div className="path-card-copy"><span>{path.number}</span><p>{path.label}</p><h3>{path.title}</h3><small>{path.description}</small><b aria-hidden="true">↙</b></div></a>)}</div></section>
-
-    <section className="collection-section" id="collection"><div className="section-heading" data-reveal><div><p className="eyebrow dark">A CURATED LIVING COLLECTION</p><h2>נבחרים מהסטודיו</h2></div><a href="/category/all-products">לכל המוצרים <span>←</span></a></div><ProductCarousel>{carouselProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index >= carouselProducts.length - 2} quickAdd />)}</ProductCarousel></section>
+    <section className="collection-section" id="collection"><div className="section-heading" data-reveal><div><p className="eyebrow dark">A CURATED LIVING COLLECTION</p><h2>נבחרים מהסטודיו</h2></div><a className="collection-store-button" href="/category/all-products">למוצרי החנות <span>←</span></a></div><ProductCarousel>{carouselProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index >= carouselProducts.length - 2} quickAdd />)}</ProductCarousel></section>
 
     <section className="terrarium-feature" data-spotlight><img src="/images/terrarium-feature-16x9.webp" alt="אוסף טרריומים מעוצבים של Bioloark" data-scroll-media data-scroll-axis="x" /><div className="terrarium-feature-copy" data-reveal><p className="eyebrow">A WORLD WITHIN</p><h2>טרריומים ועולמות קטנים בעיצוב מוקפד</h2><p>פיסות טבע שנבנות שכבה אחר שכבה מתוך השראה ליצור נוף טבעי ומסעיר שמרגיש מוכר.</p><a className="outline-button" href="/category/טרריומים-מעוצבים">לחנות טרריומים מעוצבים</a></div></section>
+
+    <section className="path-section" aria-labelledby="path-title"><div className="path-heading" data-reveal><p className="eyebrow dark">THREE WAYS INTO THE LIVING WORLD</p><h2 id="path-title">הדרך שלכם<br />להכניס טבע פנימה</h2><p>בחרו יצירה מוכנה, בנו עולם משלכם או תנו לנו לתכנן עבורכם פתרון מותאם אישית.</p></div><div className="path-grid">{pathways.map((path) => <a className="path-card" href={path.href} key={path.number} data-reveal><div className="path-card-media"><img src={path.image} alt={path.title} loading="lazy" data-scroll-media data-scroll-speed="6" /></div><div className="path-card-copy"><span>{path.number}</span><p>{path.label}</p><h3>{path.title}</h3><small>{path.description}</small><b aria-hidden="true">↙</b></div></a>)}</div></section>
 
     <section className="services-section" id="consulting"><div className="services-intro" data-reveal><p className="eyebrow dark">BOTANICAL SYSTEMS & CONSULTING</p><h2>שירותי ייעוץ ותכנון מערכות צמחייה</h2><p>אנו מציעים פתרונות תכנון וליווי אישיים ליצירת מערכות אקולוגיות מתקדמות, המשלבות את העדינות היפנית עם טכנולוגיה מודרנית לחללי יוקרה, משרדים ובתי מלון.</p></div><div className="service-grid">{services.map((service) => <article className="service-card" key={service.number} data-reveal><div className="service-image"><img src={service.image} alt={service.title} loading="lazy" data-scroll-media data-scroll-speed="8" /></div><h3>{service.title}</h3><p>{service.description}</p></article>)}</div></section>
 
