@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import catalogJson from '../data/catalog.json';
-import { previewArticles, terrariumGuide } from '../data/articles';
+import { easyTerrariumGuide, previewArticles, terrariumGuide } from '../data/articles';
 import type { BlogArticle, Cart, Collection, Money, Product, ProductImage, ProductVariant, ShopPolicy } from './types';
 
 type Catalog = { products: Product[]; collections: Collection[] };
@@ -201,12 +201,14 @@ export async function getBlogArticles(): Promise<BlogArticle[]> {
     const data = await shopifyFetch<{ articles: { nodes: any[] } }>(`query Articles { articles(first: 40, sortKey: PUBLISHED_AT, reverse: true) { nodes { ${articleFields} } } }`);
     if (!data.articles.nodes.length) return previewArticles;
     const articles = data.articles.nodes.map(mapArticle);
-    return [terrariumGuide, ...articles.filter((article) => article.handle !== terrariumGuide.handle)];
+    const localGuides = [easyTerrariumGuide, terrariumGuide];
+    return [...localGuides, ...articles.filter((article) => !localGuides.some((guide) => guide.handle === article.handle))];
   } catch { return previewArticles; }
 }
 
 export async function getBlogArticle(handle: string): Promise<BlogArticle | undefined> {
   const decoded = decodeURIComponent(handle);
+  if (decoded === easyTerrariumGuide.handle) return easyTerrariumGuide;
   if (decoded === terrariumGuide.handle) return terrariumGuide;
   if (!shopifyIsConfigured()) return previewArticles.find((article) => article.handle === decoded);
   try {

@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBlogArticle, getBlogArticles } from '../../../lib/commerce';
-import { terrariumGuide } from '../../../data/articles';
+import { easyTerrariumGuide, terrariumGuide } from '../../../data/articles';
 import styles from './article.module.css';
 
 const terrariumTopics = new Set(['terrarium-substrate-layers', 'terrarium-lighting-guide', 'terrarium-mold-guide']);
 
 export async function generateMetadata({ params }: { params: Promise<{ handle: string }> }): Promise<Metadata> {
   const article = await getBlogArticle((await params).handle);
-  return article ? { title: article.seoTitle ?? `${article.title} | Bioloark`, description: article.excerpt, ...((article.handle === terrariumGuide.handle || article.handle === 'terrarium-substrate-layers') && { alternates: { canonical: `/blog/${article.handle}` } }), openGraph: { title: article.title, description: article.excerpt, images: article.image ? [article.image.url] : [] } } : {};
+  return article ? { title: article.seoTitle ?? `${article.title} | Bioloark`, description: article.excerpt, ...((article.handle === easyTerrariumGuide.handle || article.handle === terrariumGuide.handle || article.handle === 'terrarium-substrate-layers') && { alternates: { canonical: `/blog/${article.handle}` } }), openGraph: { title: article.title, description: article.excerpt, images: article.image ? [article.image.url] : [] } } : {};
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ handle: string }> }) {
