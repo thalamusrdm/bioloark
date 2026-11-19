@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import catalogJson from '../data/catalog.json';
-import { easyTerrariumGuide, previewArticles, terrariumGuide } from '../data/articles';
+import { easyTerrariumGuide, paludariumGuide, previewArticles, terrariumGuide } from '../data/articles';
 import type { BlogArticle, Cart, Collection, Money, Product, ProductImage, ProductVariant, ShopPolicy } from './types';
 
 type Catalog = { products: Product[]; collections: Collection[] };
@@ -201,7 +201,7 @@ export async function getBlogArticles(): Promise<BlogArticle[]> {
     const data = await shopifyFetch<{ articles: { nodes: any[] } }>(`query Articles { articles(first: 40, sortKey: PUBLISHED_AT, reverse: true) { nodes { ${articleFields} } } }`);
     if (!data.articles.nodes.length) return previewArticles;
     const articles = data.articles.nodes.map(mapArticle);
-    const localGuides = [easyTerrariumGuide, terrariumGuide];
+    const localGuides = [paludariumGuide, easyTerrariumGuide, terrariumGuide];
     return [...localGuides, ...articles.filter((article) => !localGuides.some((guide) => guide.handle === article.handle))];
   } catch { return previewArticles; }
 }
@@ -209,6 +209,7 @@ export async function getBlogArticles(): Promise<BlogArticle[]> {
 export async function getBlogArticle(handle: string): Promise<BlogArticle | undefined> {
   const decoded = decodeURIComponent(handle);
   if (decoded === easyTerrariumGuide.handle) return easyTerrariumGuide;
+  if (decoded === paludariumGuide.handle) return paludariumGuide;
   if (decoded === terrariumGuide.handle) return terrariumGuide;
   if (!shopifyIsConfigured()) return previewArticles.find((article) => article.handle === decoded);
   try {
