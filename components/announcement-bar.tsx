@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 
 const announcements = [
-  { text: 'משלוח מקומי במרכז — ₪35' },
-  { text: 'משלוח חינם בקנייה מעל ₪400', link: '/delivery-check', action: 'בדיקת זכאות' },
   { text: 'מתנה בכל קנייה 🎁' },
+  { text: 'משלוחים חינם במרכז בקנייה מעל ₪400' },
+  { text: 'משלוחים מוזלים' },
+  { text: '', link: '/delivery-check', action: 'בדוק זמינות למשלוח חינם' },
 ];
 
 export function AnnouncementBar() {
@@ -21,7 +22,7 @@ export function AnnouncementBar() {
   return (
     <aside className="announcement-bar" aria-label="עדכוני משלוחים והטבות">
       <div className="announcement-message" key={active}>
-        <span>{announcement.text}</span>
+        {announcement.text && <span>{announcement.text}</span>}
         {announcement.action && announcement.link && <a href={announcement.link}>{announcement.action} ←</a>}
       </div>
       <div className="announcement-dots" aria-hidden="true">
