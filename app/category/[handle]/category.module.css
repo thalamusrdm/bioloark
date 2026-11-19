@@ -1,0 +1,26 @@
+.readyHero h1 {
+  max-width: 20ch;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.08;
+}
+
+.buyingGuide {
+  max-width: 46rem;
+  margin-block: clamp(2.5rem, 7vw, 5rem);
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid currentColor;
+  line-height: 1.75;
+}
+
+.buyingGuide ul {
+  padding-inline-start: 1.25rem;
+}
+
+.buyingGuide li + li {
+  margin-block-start: 0.65rem;
+}
+
+.buyingGuide a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
