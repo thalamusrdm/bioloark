@@ -84,16 +84,22 @@ const homepageKitHandle = 'טרריום-להכנה-עצמית-סט-מלא';
 const homepagePriorityHandles = [
   homepageKitHandle,
   '100g-sphagnum-moss',
+  'untitled-oct11_20-19-38',
+  'dooa-wabi-kusa-mist',
+];
+const homepageLaterPriorityHandles = [
+  'dooa-jungle-base',
 ];
 const homepageExcludedHandles = new Set([
   'שפגנום-מוס-ניו-זילנד-zoo-med-new-zealand-sphagnum-moss',
+  'wio-wild-red-lava-stone-1kg',
 ]);
 
 function isAvailableProduct(product: Product) {
   return product.availableForSale;
 }
 
-function buildHomepageCarousel(newest: Product[], bestSelling: Product[]) {
+function buildHomepageCarousel(newest: Product[], bestSelling: Product[], pinned: Product[] = []) {
   const availableNewest = newest.filter((product) => isAvailableProduct(product) && !homepageExcludedHandles.has(product.handle));
   const availableBestSelling = bestSelling.filter((product) => isAvailableProduct(product) && !homepageExcludedHandles.has(product.handle));
   const mixedProducts: Product[] = [];
@@ -104,15 +110,25 @@ function buildHomepageCarousel(newest: Product[], bestSelling: Product[]) {
     if (availableBestSelling[index]) mixedProducts.push(availableBestSelling[index]);
   }
 
-  const uniqueProducts = Array.from(new Map(mixedProducts.map((product) => [product.id, product])).values());
+  const uniqueProducts = Array.from(new Map([...pinned, ...mixedProducts].map((product) => [product.id, product])).values());
   const priorityProducts = homepagePriorityHandles.flatMap((handle) => {
     const product = uniqueProducts.find((item) => item.handle === handle);
     return product ? [product] : [];
   });
-  const priorityHandleSet = new Set(priorityProducts.map((product) => product.handle));
-  const remainingProducts = uniqueProducts.filter((product) => !priorityHandleSet.has(product.handle));
+  const laterPriorityProducts = homepageLaterPriorityHandles.flatMap((handle) => {
+    const product = uniqueProducts.find((item) => item.handle === handle);
+    return product ? [product] : [];
+  });
+  const fixedHandleSet = new Set([...priorityProducts, ...laterPriorityProducts].map((product) => product.handle));
+  const remainingProducts = uniqueProducts.filter((product) => !fixedHandleSet.has(product.handle));
+  const laterInsertIndex = Math.min(5, remainingProducts.length);
 
-  return [...priorityProducts, ...remainingProducts].slice(0, 32);
+  return [
+    ...priorityProducts,
+    ...remainingProducts.slice(0, laterInsertIndex),
+    ...laterPriorityProducts,
+    ...remainingProducts.slice(laterInsertIndex),
+  ].slice(0, 32);
 }
 
 function getPreviewHomepageCarouselProducts() {
@@ -133,16 +149,39 @@ export async function getHomepageCarouselProducts(): Promise<Product[]> {
     const data = await shopifyFetch<{
       newest: { nodes: any[] };
       bestSelling: { nodes: any[] };
-    }>(`query HomepageCarousel($newestCount: Int!, $bestSellingCount: Int!) {
+      kit: any | null;
+      sphagnum: any | null;
+      jungleSoil: any | null;
+      jungleBase: any | null;
+      wabiKusaMist: any | null;
+    }>(`query HomepageCarousel($newestCount: Int!, $bestSellingCount: Int!, $kitHandle: String!, $sphagnumHandle: String!, $jungleSoilHandle: String!, $jungleBaseHandle: String!, $wabiKusaMistHandle: String!) {
       newest: products(first: $newestCount, sortKey: CREATED_AT, reverse: true, query: "available_for_sale:true") {
         nodes { ${productFields} }
       }
       bestSelling: products(first: $bestSellingCount, sortKey: BEST_SELLING, query: "available_for_sale:true") {
         nodes { ${productFields} }
       }
-    }`, { newestCount: 24, bestSellingCount: 32 });
+      kit: product(handle: $kitHandle) { ${productFields} }
+      sphagnum: product(handle: $sphagnumHandle) { ${productFields} }
+      jungleSoil: product(handle: $jungleSoilHandle) { ${productFields} }
+      jungleBase: product(handle: $jungleBaseHandle) { ${productFields} }
+      wabiKusaMist: product(handle: $wabiKusaMistHandle) { ${productFields} }
+    }`, {
+      newestCount: 24,
+      bestSellingCount: 32,
+      kitHandle: homepageKitHandle,
+      sphagnumHandle: homepagePriorityHandles[1],
+      jungleSoilHandle: homepagePriorityHandles[2],
+      jungleBaseHandle: homepageLaterPriorityHandles[0],
+      wabiKusaMistHandle: homepagePriorityHandles[3],
+    });
 
-    return buildHomepageCarousel(data.newest.nodes.map(mapProduct), data.bestSelling.nodes.map(mapProduct));
+    const pinned = [data.kit, data.sphagnum, data.jungleSoil, data.jungleBase, data.wabiKusaMist]
+      .filter((product): product is any => Boolean(product))
+      .map(mapProduct)
+      .filter(isAvailableProduct);
+
+    return buildHomepageCarousel(data.newest.nodes.map(mapProduct), data.bestSelling.nodes.map(mapProduct), pinned);
   } catch {
     return getPreviewHomepageCarouselProducts();
   }

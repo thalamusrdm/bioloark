@@ -7,8 +7,15 @@ export function ProductBackButton() {
 
   const goBack = () => {
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-    if (window.history.length > 1) router.back();
-    else router.push('/category/all-products', { scroll: false });
+    const referrer = document.referrer ? new URL(document.referrer) : null;
+    const cameFromThisSite = referrer?.origin === window.location.origin;
+
+    if (cameFromThisSite && window.history.length > 1) {
+      router.back();
+      return;
+    }
+
+    router.push('/category/all-products', { scroll: false });
   };
 
   return (
