@@ -2483,7 +2483,7 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
 .ad-consent-settings { position: fixed; z-index: 40; inset: auto 12px 8px auto; padding: 5px 9px; border: 1px solid #cbd7cd; border-radius: 6px; background: #fff; color: #173b32; font: inherit; font-size: 12px; cursor: pointer; }
 
 /* Shipping announcements and pre-check */
-:root { --announcement-height: 20px; --site-header-height: 64px; }
+:root { --announcement-height: 20px; --site-header-height: 68px; }
 .announcement-bar {
   position: fixed;
   inset: 0 0 auto;
@@ -2546,7 +2546,7 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
 .delivery-check-shop { display: inline-flex; margin-top: 25px; padding-bottom: 5px; border-bottom: 1px solid var(--brass); color: var(--ink); font-weight: 750; }
 
 @media (max-width: 620px) {
-  :root { --announcement-height: 21px; --site-header-height: 50px; }
+  :root { --announcement-height: 21px; --site-header-height: 54px; }
   .announcement-bar { padding: 0 12px; }
   .announcement-message { gap: 5px; font-size: 9.5px; letter-spacing: .01em; }
   .announcement-dots { display: none; }
@@ -2585,7 +2585,8 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
   user-select: none;
   cursor: grab;
 }
-.hero-media-carousel:active { cursor: grabbing; }
+.hero-media-carousel:active,
+.hero-media-carousel.is-dragging { cursor: grabbing; }
 .hero-media-stage,
 .hero-media-slide {
   position: absolute;
@@ -2598,8 +2599,9 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
   background: #07110d;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .8s ease;
+  transition: opacity .8s ease, transform .2s ease;
 }
+.hero-media-carousel.is-dragging .hero-media-slide { transition: opacity .8s ease; }
 .hero-media-slide.is-active {
   z-index: 1;
   opacity: 1;
@@ -2714,7 +2716,7 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
 
 @media (max-width: 900px) {
   :root { --site-header-height: 54px; }
-  .home-boutique .kit-hero { min-height: auto; display: block; padding: calc(60% + 14px) 20px 42px; }
+  .home-boutique .kit-hero { min-height: auto; display: block; padding: calc(60% + 18px) 20px 42px; }
   .home-boutique .kit-hero .hero-image { inset: 0 0 auto; width: 100%; height: auto; aspect-ratio: 5 / 3; background-position: left center; background-size: cover; transform: none !important; }
   .home-boutique .kit-hero .hero-veil { background: linear-gradient(0deg, #07110d 0%, rgba(7,17,13,.96) 28%, rgba(7,17,13,.12) 67%); }
   .home-boutique .kit-hero .hero-content,
@@ -2727,16 +2729,16 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
 }
 
 @media (max-width: 560px) {
-  :root { --site-header-height: 50px; }
-  .home-boutique .kit-hero { padding: calc(60% + 12px) 18px 34px; }
+  :root { --site-header-height: 54px; }
+  .home-boutique .kit-hero { padding: calc(60% + 16px) 18px 34px; }
   .home-boutique .kit-hero .hero-image { height: auto; background-position: left center; }
   .home-boutique .kit-hero .hero-content { top: auto; }
-  .home-boutique .kit-hero .eyebrow { margin-bottom: 13px; font-size: 8.5px; }
+  .home-boutique .kit-hero .eyebrow { margin-bottom: 16px; font-size: 8.5px; }
   .home-boutique .kit-hero h1 { font-size: clamp(38px, 11.5vw, 50px); }
   .home-boutique .kit-hero h1 .hero-brand-line { margin-bottom: .4em; font-size: .35em; }
   .home-boutique .kit-hero h1 .hero-tagline { line-height: 1.045; }
-  .home-boutique .kit-hero .hero-copy { min-height: 0; margin-block: 14px 17px; font-size: 13.5px; line-height: 1.55; }
-  .hero-kit-uses { margin: -4px 0 16px; font-size: 10.5px; line-height: 1.5; }
+  .home-boutique .kit-hero .hero-copy { min-height: 0; margin-block: 17px 20px; font-size: 13.5px; line-height: 1.55; }
+  .hero-kit-uses { margin: -4px 0 18px; font-size: 10.5px; line-height: 1.5; }
   .home-boutique .kit-hero .hero-store-button { min-width: 204px; min-height: 46px; padding-inline-end: 7px; }
   .hero-media-controls { gap: 0; padding: 0; }
   .hero-media-controls > button { width: 17px; height: 17px; font-size: 8px; }
@@ -2748,7 +2750,7 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
 @media (min-width: 901px) {
   .home-boutique .kit-hero {
     display: grid;
-    grid-template-columns: minmax(0, 58%) minmax(0, 42%);
+    grid-template-columns: minmax(0, 68%) minmax(0, 32%);
     align-items: center;
     min-height: 0;
     padding: 0;
@@ -2770,13 +2772,26 @@ html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { scro
     grid-row: 1;
     justify-self: center;
     width: 100%;
-    max-width: 570px;
+    max-width: 600px;
     margin: 0;
-    padding-inline: clamp(34px, 4.5vw, 66px);
+    padding-inline: clamp(26px, 2.6vw, 48px);
     direction: rtl;
     text-align: right;
     transform: none;
   }
+  .home-boutique .kit-hero .eyebrow { margin-bottom: 23px; }
+  .home-boutique .kit-hero h1 { font-size: clamp(48px, 4.35vw, 70px); line-height: 1.015; }
+  .home-boutique .kit-hero h1 .hero-brand-line { margin-bottom: .22em; }
+  .home-boutique .kit-hero .hero-copy {
+    margin-block: 27px 31px;
+    font-size: clamp(15px, 1.12vw, 18px);
+    line-height: 1.65;
+  }
+  .home-boutique .kit-hero .hero-kit-uses {
+    margin: -4px 0 27px;
+    font-size: 14px;
+  }
+  .home-boutique .kit-hero .hero-store-button { min-height: 54px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -65,6 +65,8 @@ export function HeroMediaCarousel() {
   const [active, setActive] = useState(0);
   const [hoverPause, setHoverPause] = useState(false);
   const [pointerPause, setPointerPause] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [dragging, setDragging] = useState(false);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number; y: number } | null>(null);
   const paused = hoverPause || pointerPause;
@@ -99,10 +101,26 @@ export function HeroMediaCarousel() {
     event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
+  const movePointer = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = pointerStart.current;
+    if (!start || start.id !== event.pointerId) return;
+
+    const deltaX = event.clientX - start.x;
+    const deltaY = event.clientY - start.y;
+    if (!dragging && Math.abs(deltaX) < 5) return;
+    if (!dragging && Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+    event.preventDefault();
+    setDragging(true);
+    setDragOffset(Math.max(-140, Math.min(140, deltaX)));
+  };
+
   const finishPointer = (event: ReactPointerEvent<HTMLDivElement>, cancelled = false) => {
     const start = pointerStart.current;
     pointerStart.current = null;
     setPointerPause(false);
+    setDragging(false);
+    setDragOffset(0);
 
     if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -117,7 +135,7 @@ export function HeroMediaCarousel() {
 
   return (
     <div
-      className="hero-image hero-media-carousel"
+      className={`hero-image hero-media-carousel${dragging ? ' is-dragging' : ''}`}
       onMouseEnter={() => setHoverPause(true)}
       onMouseLeave={() => setHoverPause(false)}
       onFocusCapture={() => setHoverPause(true)}
@@ -125,8 +143,10 @@ export function HeroMediaCarousel() {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHoverPause(false);
       }}
       onPointerDown={startPointer}
+      onPointerMove={movePointer}
       onPointerUp={finishPointer}
       onPointerCancel={(event) => finishPointer(event, true)}
+      onDragStart={(event) => event.preventDefault()}
       aria-label="תמונות וסרטונים של ערכת הטרריום"
     >
       <div className="hero-media-stage">
@@ -137,10 +157,11 @@ export function HeroMediaCarousel() {
               className={`hero-media-slide is-${slide.fit || 'cover'}${index === active ? ' is-active' : ''}`}
               aria-hidden={index !== active}
               key={slide.src}
+              style={index === active ? { transform: `translate3d(${dragOffset}px, 0, 0)` } : undefined}
             >
               {slide.fit === 'contain' && <span className="hero-media-backdrop" style={{ backgroundImage: `url(${backdrop})` }} aria-hidden="true" />}
               {slide.type === 'image' ? (
-                <img src={slide.src} alt={index === active ? slide.alt : ''} loading={index === 0 ? 'eager' : 'lazy'} />
+                <img src={slide.src} alt={index === active ? slide.alt : ''} loading={index === 0 ? 'eager' : 'lazy'} draggable={false} />
               ) : (
                 <video
                   ref={(node) => { videoRefs.current[index] = node; }}
@@ -148,6 +169,7 @@ export function HeroMediaCarousel() {
                   poster={slide.poster}
                   muted
                   playsInline
+                  draggable={false}
                   preload={slide.src === '/videos/terrarium-hero-build.mp4' ? 'auto' : 'metadata'}
                   onEnded={(event) => {
                     if (index !== active) return;
